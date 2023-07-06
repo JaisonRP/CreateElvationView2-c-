@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net4.8</TargetFramework>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if $(ConfigurationName) == Release &quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x64\signtool.exe&quot; sign /n &quot;Solid&quot; /fd sha256 /du https://solidcad.ca/ /t http://timestamp.digicert.com &quot;$(TargetPath)&quot;&#xD;&#xA;&#xD;&#xA;robocopy &quot;$(TargetDir)\&quot; &quot;$(SolutionDir)StarLine.AutoDimension.bundle\Contents\Windows\RVT2022\\&quot; /s&#xD;&#xA;&#xD;&#xA;if %25errorlevel%25 geq 8 exit 1&#xD;&#xA;exit 0" />
+  </Target>
+
+  <ItemGroup>
+    <None Remove="Images\Dim.png" />
+    <None Remove="Images\Settings.png" />
+    <None Remove="Images\Tag.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StarLine.AutoDimension.Core\StarLine.AutoDimension.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="RevitAPI">
+      <HintPath>..\..\libs\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>..\..\libs\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Dim.png" />
+    <Resource Include="Images\Settings.png" />
+    <Resource Include="Images\Tag.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="default.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="StarLine.AutoDimension.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

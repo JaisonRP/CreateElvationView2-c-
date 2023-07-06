@@ -1,0 +1,31 @@
+﻿<Project Sdk="WixToolset.Sdk/4.0.0">
+    <ItemGroup>
+        <PackageReference Include="WixToolset.Heat" Version="4.0.0" />
+        <PackageReference Include="WixToolset.UI.wixext" Version="4.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <HarvestDirectory Include="../../StarLine.AutoDimension.bundle">
+            <ComponentGroupName>HarvestedComponents</ComponentGroupName>
+            <DirectoryRefId>INSTALLFOLDER</DirectoryRefId>
+            <SuppressRootDirectory>true</SuppressRootDirectory>
+        </HarvestDirectory>
+        <BindPath Include="../../StarLine.AutoDimension.bundle" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Assets\solidcad_logo.ico" />
+        <Content Include="Assets\SolidCAD_wix_banner.png" />
+        <Content Include="Assets\SolidCAD_wix_bg.png" />
+        <Content Include="Assets\License.rtf" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\StarLine.AutoDimension.Plugin\StarLine.AutoDimension.Plugin.csproj" />
+    </ItemGroup>
+    <PropertyGroup>
+        <SignOutput>true</SignOutput>
+        <SignToolRoot>C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x64</SignToolRoot>
+    </PropertyGroup>
+    <Target Name="SignMsi" Condition="'$(Configuration)' == 'Release' ">
+        <Message Importance="high" Text="SignMsi: @(SignMsi)" />
+        <Exec Command="&quot;$(SignToolRoot)\signtool.exe&quot; sign /n &quot;Solid&quot; /fd sha256 /t http://timestamp.digicert.com /du https://solidcad.ca/ /v /d &quot;%(SignMsi.Filename)&quot; &quot;@(SignMsi)&quot;" />
+    </Target>
+</Project>

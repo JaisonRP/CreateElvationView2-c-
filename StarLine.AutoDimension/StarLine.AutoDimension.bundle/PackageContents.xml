@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage SchemaVersion="1.0" 
+	AutodeskProduct="Revit" 
+	Name="StarLine.AutoDimension" 
+	Description="StarLine Auto Dimension" 
+	AppVersion="1.0.0" 
+	FriendlyVersion="1.0.0" 
+	ProductType="Application" 
+	SupportedLocales="Enu" 
+	AppNameSpace="appstore.exchange.autodesk.com" 
+	Author="Mostafa Ali" 
+	ProductCode="E3AC9CA0-4BBF-4D3F-B534-8F773F426FAC" 
+	UpgradeCode="43424F7A-F303-4815-AC7C-DF9C2BCB18E6">
+	<CompanyDetails 
+		Name="SolidCAD" 
+		Email="support@solidcad.ca" 
+		Url="https://solidcad.ca" />
+	<RuntimeRequirements 
+		OS="Win32|Win64" 
+		Platform="Revit" 
+		SeriesMin="R2022" 
+		SeriesMax="R2023" />
+	<Components Description="Revit2022">
+		<RuntimeRequirements OS="Win32|Win64" Platform="Revit" SeriesMin="R2022" SeriesMax="R2022" />
+		<ComponentEntry 
+			AppName="Revit 2022" 
+			Version="1.0.0" 
+			ModuleName="./Contents/Windows/RVT2022/StarLine.AutoDimension.addin" 
+			AppDescription="Revit 2022 component" />
+	</Components>
+	<Components Description="Revit2023">
+		<RuntimeRequirements OS="Win32|Win64" Platform="Revit" SeriesMin="R2023" SeriesMax="R2023" />
+		<ComponentEntry 
+			AppName="Revit 2023" 
+			Version="1.0.0" 
+			ModuleName="./Contents/Windows/RVT2022/StarLine.AutoDimension.addin" 
+			AppDescription="Revit 2023 component" />
+	</Components>
+</ApplicationPackage>

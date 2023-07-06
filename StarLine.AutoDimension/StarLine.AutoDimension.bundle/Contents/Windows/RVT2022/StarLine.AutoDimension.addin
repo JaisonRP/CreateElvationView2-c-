@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>StarLine.AutoDimension</Name>
+        <FullClassName>StarLine.AutoDimension.Plugin.Init</FullClassName>
+        <Text>Revit Exporter</Text>
+        <Description>Util tools for AutoDimension</Description>
+        <VisibilityMode>AlwaysVisible</VisibilityMode>
+        <Assembly>StarLine.AutoDimension.Plugin.dll</Assembly>
+        <AddInId>556042BB-9DBA-4A5E-910C-7F12A7F806F5</AddInId>
+        <VendorId>SOLIDCAD</VendorId>
+    </AddIn>
+</RevitAddIns>

@@ -1,0 +1,18 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+    <Package Name="StarLine AutoDimension Installer" Manufacturer="SolidCAD" Version="1.0.0.0" UpgradeCode="36c5f32f-ad55-44a0-8199-dc194fae099e">
+        <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+        <MediaTemplate EmbedCab="yes" />
+        <ui:WixUI Id="WixUI_Minimal" />
+
+        <WixVariable Id="WixUILicenseRtf" Value="Assets/License.rtf" />
+        <WixVariable Id="WixUIBannerBmp" Value="Assets/SolidCAD_wix_banner.png" />
+        <WixVariable Id="WixUIDialogBmp" Value="Assets/SolidCAD_wix_bg.png" />
+        <Icon Id="icon.ico" SourceFile="Assets/solidcad_logo.ico"/>
+        <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+        <Feature Id="Main">
+            <ComponentGroupRef Id="HarvestedComponents" />
+        </Feature>
+    </Package>
+</Wix>

@@ -1,0 +1,11 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Fragment>
+        <StandardDirectory Id="CommonAppDataFolder">
+            <Directory Id="Autodesk" Name="Autodesk">
+                <Directory Id="ApplicationPlugins" Name="ApplicationPlugins">
+                    <Directory Id="INSTALLFOLDER" Name="StarLine.AutoDimension.bundle" />
+                </Directory>
+            </Directory>
+        </StandardDirectory>
+    </Fragment>
+</Wix>

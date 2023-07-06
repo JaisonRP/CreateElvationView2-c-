@@ -1,0 +1,143 @@
+{
+  "HorizontalReferences": [
+    {
+      "RefType": 0,
+      "TypeName": "Top Of Slab",
+      "PlaneName": "Top_Of_Slab"
+    },
+    {
+      "RefType": 3,
+      "TypeName": "Rough Bottom",
+      "PlaneName": "Rough_Bottom"
+    },
+    {
+      "RefType": 7,
+      "TypeName": "Heel Bottom",
+      "PlaneName": "Heel_Bottom"
+    },
+    {
+      "RefType": 10,
+      "TypeName": "Interior Rough Bottom",
+      "PlaneName": "Interior.Rough.Bottom"
+    },
+    {
+      "RefType": 11,
+      "TypeName": "Interior Heel Bottom",
+      "PlaneName": "Interior.Heel.Bottom"
+    },
+    {
+      "RefType": 12,
+      "TypeName": "CL TBar 1",
+      "PlaneName": "CL_TBar_1"
+    },
+    {
+      "RefType": 12,
+      "TypeName": "CL TBar 2",
+      "PlaneName": "CL_TBar_2"
+    },
+    {
+      "RefType": 12,
+      "TypeName": "CL TBar 3",
+      "PlaneName": "CL_TBar_3"
+    },
+    {
+      "RefType": 12,
+      "TypeName": "CL TBar 4",
+      "PlaneName": "CL_TBar_4"
+    },
+    {
+      "RefType": 12,
+      "TypeName": "CL TBar 5",
+      "PlaneName": "CL_TBar_5"
+    },
+    {
+      "RefType": 12,
+      "TypeName": "CL TBar 6",
+      "PlaneName": "CL_TBar_6"
+    },
+    {
+      "RefType": 6,
+      "TypeName": "Heel Top",
+      "PlaneName": "Heel_Top"
+    },
+    {
+      "RefType": 2,
+      "TypeName": "Rough Top",
+      "PlaneName": "RO_Top"
+    },
+    {
+      "RefType": 1,
+      "TypeName": "Bottom Of Slab",
+      "PlaneName": "Bottom.Of.Slab"
+    }
+  ],
+  "VerticalReferences": [
+    {
+      "RefType": 4,
+      "TypeName": "Rough Left",
+      "PlaneName": "RO_Left"
+    },
+    {
+      "RefType": 8,
+      "TypeName": "Heel Left",
+      "PlaneName": "Heel_Left"
+    },
+    {
+      "RefType": 13,
+      "TypeName": "Extend Jamb Left",
+      "PlaneName": "Extend.Jamb.Left"
+    },
+    {
+      "RefType": 12,
+      "TypeName": "CL TBar 1",
+      "PlaneName": "CL.TBar.Vertical"
+    },
+    {
+      "RefType": 14,
+      "TypeName": "Extend Jamb Right",
+      "PlaneName": "Extend.Jamb.Right"
+    },
+    {
+      "RefType": 9,
+      "TypeName": "Heel Right",
+      "PlaneName": "Heel.Right"
+    },
+    {
+      "RefType": 5,
+      "TypeName": "Rough Right",
+      "PlaneName": "RO_Right"
+    }
+  ],
+  "CurtainPanelTag": {
+    "Id": 365033,
+    "Name": "SW_FrameTag"
+  },
+  "CurtainPanelTagDoors": {
+    "Id": 365033,
+    "Name": "SW_FrameTag"
+  },
+  "MaterialTag": {
+    "Id": 364404,
+    "Name": "SW_MaterialTag"
+  },
+  "GenericTag": {
+    "Id": 364715,
+    "Name": "Typical Installation - Inside Corner"
+  },
+  "GenericAnnotation": {
+    "Id": 325992,
+    "Name": "\"DIMENSION\""
+  },
+  "SuppressCornerPostTag": false,
+  "HorizontalDimensionBottom": false,
+  "AutoAlignDimension": false,
+  "CurtainTagOffset": 0.0,
+  "DoorTagOffset": -0.0625,
+  "MaterialTagOffset": 0.020833333333333336,
+  "CornerPostTagOffset": 0.0,
+  "MoveSegmentsLessThan": 1.0,
+  "MoveSegmentsBy": 1.0,
+  "StackSegmentsCloserThan": 1.0,
+  "StackingDistance": 1.0,
+  "DimLinesDistance": 1.0
+}
