@@ -52,10 +52,10 @@ When you're ready to make this README your own, just edit this file and use the 
 Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
 
 ## Name
-Choose a self-explaining name for your project.
+Starline Auto Annotations - Revit Plugin.
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+The Starline Auto Annotations is a powerful Revit plugin designed to streamline the dimensioning and labeling of building elements within the Revit environment. With this plugin, users can automate the tedious task of adding dimensions and tags to various architectural elements, including Curtain Walls, Curtain Panels, Windows, Doors, and Generic Models.
 
 ## Badges
 On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
@@ -73,7 +73,16 @@ Use examples liberally, and show the expected output if you can. It's helpful to
 Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
 
 ## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+The future releases and enhancements planned for Starline Auto Annotations - Revit Plugin:
+
+Upcoming Features
+Vertical Dimension Fix: Addressing missing vertical dimensions to ensure comprehensive dimensioning coverage. This fix will enhance the accuracy and completeness of dimensioning.
+
+Cutout Dimension and Tagging: Introducing the ability to add cutout dimensions and associated tags, further expanding the plugin's capabilities for precise architectural detailing.
+
+Door Vertical Dimensions: Enhancing the plugin's functionality by adding specific support for vertical dimensions related to doors, providing users with more comprehensive dimensioning options.
+
+We are committed to continuously improving and expanding the capabilities of the Starline Auto Annotations plugin to meet the evolving needs of our users. Stay tuned for these exciting updates!
 
 ## Contributing
 State if you are open to contributions and what your requirements are for accepting them.
@@ -84,6 +93,8 @@ You can also document commands to lint the code or run tests. These steps help t
 
 ## Authors and acknowledgment
 Show your appreciation to those who have contributed to the project.
+Mostafa Ali - mostafa.ali@solidcad.ca
+Neel Shah - nshah@starlinewindows.com
 
 ## License
 For open source projects, say how it is licensed.
