@@ -1,0 +1,110 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj",
+        "projectName": "StarLine.AutoDimension.Core",
+        "projectPath": "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj",
+        "packagesPath": "C:\\Users\\NShah\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\NShah\\Source\\Repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\NShah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net4.8"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net4.8",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net4.8",
+          "dependencies": {
+            "Microsoft-WindowsAPICodePack-Shell": {
+              "target": "Package",
+              "version": "[1.1.4, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Tortuga.Anchor": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
+        "projectName": "StarLine.AutoDimension.Plugin",
+        "projectPath": "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
+        "packagesPath": "C:\\Users\\NShah\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\NShah\\Source\\Repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\NShah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net4.8"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net4.8",
+            "projectReferences": {
+              "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj": {
+                "projectPath": "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net4.8",
+          "dependencies": {
+            "Prism.DryIoc": {
+              "target": "Package",
+              "version": "[8.1.97, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
