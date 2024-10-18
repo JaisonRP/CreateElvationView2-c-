@@ -17,5 +17,25 @@ namespace StarLine.AutoDimension.Core.Views
         {
             return (OptionsWindowViewModel)DataContext;
         }
+
+        private void TabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ReferenceView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+        private void ReferenceView_Loaded_1(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }

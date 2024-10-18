@@ -1,10 +1,10 @@
 ﻿StarLine.AutoDimension.Core
-1.0.0.0
+1.5.0.0
 
 library
 C#
 .cs
-C:\Users\NShah\source\repos\revitautodimension\StarLine.AutoDimension\src\StarLine.AutoDimension.Core\obj\Debug\net4.8\
+C:\Users\NShah\source\repos\RevitAutodimension\StarLine.AutoDimension\src\StarLine.AutoDimension.Core\obj\Debug\net4.8\
 StarLine.AutoDimension.Core
 none
 false
@@ -12,9 +12,9 @@ TRACE;DEBUG;NETFRAMEWORK;NET48;
 
 21039401286
 
-211789457551
+2389609089
 34-1544732515
 Views\OptionsWindow.xaml;Views\ReferenceView.xaml;
 
-False
+True
 

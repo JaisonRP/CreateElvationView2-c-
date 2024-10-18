@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Autodesk.Revit.DB;
 using StarLine.AutoDimension.Core.Domain;
 using StarLine.AutoDimension.Plugin.Utils;
@@ -13,6 +14,7 @@ namespace StarLine.AutoDimension.Plugin.Domain
         private readonly SelectionResult _selectionResult;
         private readonly TagChecker _tagChecker;
         private readonly RevitFilter _filter;
+        private readonly IList<PanelTagger> _panels = new List<PanelTagger>();
 
         public WallTagger(Document currentDocument, Wall wall,
             SelectionResult selectionResult)
@@ -22,119 +24,140 @@ namespace StarLine.AutoDimension.Plugin.Domain
             _selectionResult = selectionResult;
             _filter = new RevitFilter(currentDocument);
             _tagChecker = new TagChecker(currentDocument);
-        }
 
-        public void Tag(Options options)
-        {
             if (_wall.CurtainGrid != null)
             {
-                TagWall();
                 var doc = _wall.Document;
-                foreach (var elementId in _wall.CurtainGrid.GetPanelIds().Where(x => !_tagChecker.IsTagged(x)))
+                foreach (var elementId in _wall.CurtainGrid.GetPanelIds())
                 {
                     var element = doc.GetElement(elementId);
                     if (element is Panel panel)
                     {
-                        TagPanel(panel, options);
-                        foreach (var subComponentId in panel.GetSubComponentIds().Where(x => !_tagChecker.IsTagged(x)))
+                        _panels.Add(new PanelTagger(panel.Id.IntegerValue, panel,
+                            _currentDocument, _selectionResult, _tagChecker)
                         {
-                            var subElement = doc.GetElement(subComponentId);
-                            if (subElement is FamilyInstance fs)
-                            {
-                                if (subElement.Category.Id.IntegerValue == (int)BuiltInCategory.OST_Doors)
-                                {
-                                    TagDoor(fs, options);
-                                }
-                                else if (subElement.Category.Id.IntegerValue == (int)BuiltInCategory.OST_Windows)
-                                {
-                                    TagDoor(fs, options);
-                                }
-                            }
-                        }
+                            Series = panel.LookupParameter("Series")?.AsString() ?? string.Empty
+                        });
                     }
                 }
             }
         }
 
-        private void TagDoor(FamilyInstance fs, Options options)
+        public void Tag(Options options)
         {
-            var reference = new Reference(fs);
-            if (_selectionResult.RevitLinkInstance != null)
+            // Tag Panels
+            var curtainPanelTagTypes = _filter.GetPanelTagSymbols();
+            var curtainPanelTagType = IdNamePair.GetByIdOrName(curtainPanelTagTypes, options.CurtainPanelTag);
+            if (curtainPanelTagType != null)
             {
-                reference = reference.CreateLinkReference(_selectionResult.RevitLinkInstance);
-            }
-
-            if (fs.Location is LocationPoint locationPoint)
-            {
-                var types = _filter.GetDoorTagSymbols();
-                var tagType = IdNamePair.GetByIdOrName(types, options.CurtainPanelTagDoors);
-                if (tagType != null)
+                var typeId = new ElementId(curtainPanelTagType.Id);
+                foreach (var panelTagger in _panels)
                 {
-                    var tagLocation = locationPoint.Point + options.CurtainTagOffset * XYZ.BasisY;
-                    var tag = IndependentTag.Create(_currentDocument, _currentDocument.ActiveView.Id, reference, true,
-                        TagMode.TM_ADDBY_CATEGORY, TagOrientation.Horizontal, tagLocation);
-                    tag.ChangeTypeId(new ElementId(tagType.Id));
-                }
-
-                var materialTagType = GetMaterialType(options);
-                if (materialTagType != null)
-                {
-                    var materialTagLocation = locationPoint.Point + options.MaterialTagOffset * XYZ.BasisY;
-                    var tag = IndependentTag.Create(_currentDocument, _currentDocument.ActiveView.Id, reference, true,
-                        TagMode.TM_ADDBY_MATERIAL, TagOrientation.Horizontal, materialTagLocation);
-                    tag.ChangeTypeId(materialTagType.GetElementId());
+                    panelTagger.TagPanel(typeId, options.CurtainTagOffset);
                 }
             }
-        }
 
-        private void TagPanel(Panel panel, Options options)
-        {
-            var reference = new Reference(panel);
-            if (_selectionResult.RevitLinkInstance != null)
+            // Tag Doors
+            var doorTagTypes = _filter.GetDoorTagSymbols();
+            var doorTagType = IdNamePair.GetByIdOrName(doorTagTypes, options.CurtainPanelTagDoors);
+            if (doorTagType != null)
             {
-                reference = reference.CreateLinkReference(_selectionResult.RevitLinkInstance);
+                var typeId = new ElementId(doorTagType.Id);
+                foreach (var panelTagger in _panels)
+                {
+                    panelTagger.TagDoor(typeId, options.DoorTagOffset);
+                }
             }
 
-            var types = _filter.GetPanelTagSymbols();
-            var tagType = IdNamePair.GetByIdOrName(types, options.CurtainPanelTag);
-            if (tagType != null)
+            // Tag Post corner
+            if (!options.SuppressCornerPostTag)
             {
-                var tagLocation = panel.Transform.Origin + options.CurtainTagOffset * XYZ.BasisY;
-                var tag = IndependentTag.Create(_currentDocument, _currentDocument.ActiveView.Id, reference, true,
-                        TagMode.TM_ADDBY_CATEGORY, TagOrientation.Horizontal, tagLocation);
-                tag.ChangeTypeId(new ElementId(tagType.Id));
+                var genericTagTypes = _filter.GetGenericModelTagSymbols();
+                var genericTagType = IdNamePair.GetByIdOrName(genericTagTypes, options.GenericTag);
+                if (genericTagType != null)
+                {
+                    var typeId = new ElementId(genericTagType.Id);
+                    foreach (var panelTagger in _panels)
+                    {
+                        panelTagger.TagCorner(typeId, options.CornerPostTagOffset);
+                    }
+                }
             }
 
-            var materialTagType = GetMaterialType(options);
+            // Tag Generic
+            if (!options.SuppressGenericTag)
+            {
+                var genericTagTypes = _filter.GetGenericModelTagSymbols();
+                var genericTagType = IdNamePair.GetByIdOrName(genericTagTypes, options.GenericTag2);
+                if (genericTagType != null)
+                {
+                    var typeId = new ElementId(genericTagType.Id);
+                    foreach (var panelTagger in _panels)
+                    {
+                        panelTagger.TagGeneric(typeId, options.CornerPostTagOffset);
+                    }
+                }
+            }
+
+            // Tag material
+            var materialTagTypes = _filter.GetMaterialTagSymbols();
+            var materialTagType = IdNamePair.GetByIdOrName(materialTagTypes, options.MaterialTag);
             if (materialTagType != null)
             {
-                var materialTagLocation = panel.Transform.Origin + options.MaterialTagOffset * XYZ.BasisY;
-                var tag = IndependentTag.Create(_currentDocument, _currentDocument.ActiveView.Id, reference, true,
-                            TagMode.TM_ADDBY_MATERIAL, TagOrientation.Horizontal, materialTagLocation);
-                tag.ChangeTypeId(materialTagType.GetElementId());
+                var typeId = new ElementId(materialTagType.Id);
+                foreach (var panelTagger in _panels)
+                {
+                    panelTagger.TagMaterial(typeId, options.MaterialTagOffset);
+                }
+            }
+
+            // Tag annotation
+            if (!options.SuppressAnnotation)
+            {
+                var annotationSymbols = _filter.GetAnnotationSymbols();
+                var annotationType = IdNamePair.GetByIdOrName(annotationSymbols, options.GenericAnnotation);
+                if (annotationType != null)
+                {
+                    var typeId = new ElementId(annotationType.Id);
+                    foreach (var panelTagger in _panels)
+                    {
+                        panelTagger.TagAnnotation(typeId);
+                    }
+                }
             }
         }
+        private void MoveTagsToLowestZ(List<IndependentTag> tags)
+        {
+            if (tags.Count > 0)
+            {
+                // Find the tag with the lowest Z position
+                var lowestZTag = tags.OrderBy(tag => tag.TagHeadPosition.Z).FirstOrDefault();
 
+                // Move all tags to have the same Z position
+                var lowestZ = lowestZTag.TagHeadPosition.Z;
+                foreach (var tag in tags)
+                {
+                    var newPosition = new XYZ(tag.TagHeadPosition.X, tag.TagHeadPosition.Y, lowestZ);
+                    tag.TagHeadPosition = newPosition;
+                }
+            }
+        }
         private void TagWall()
         {
-            var reference = new Reference(_wall);
-            if (_selectionResult.RevitLinkInstance != null)
+            if (!_tagChecker.IsTagged(_wall.Id))
             {
-                reference = reference.CreateLinkReference(_selectionResult.RevitLinkInstance);
-            }
+                var reference = new Reference(_wall);
+                if (_selectionResult.RevitLinkInstance != null)
+                {
+                    reference = reference.CreateLinkReference(_selectionResult.RevitLinkInstance);
+                }
 
-            if (_wall.Location is LocationCurve location)
-            {
-                var tag = IndependentTag.Create(_currentDocument, _currentDocument.ActiveView.Id, reference, true,
-                    TagMode.TM_ADDBY_CATEGORY, TagOrientation.Horizontal, location.Curve.Evaluate(0.5, true));
+                if (_wall.Location is LocationCurve location)
+                {
+                    IndependentTag.Create(_currentDocument, _currentDocument.ActiveView.Id, reference, true,
+                        TagMode.TM_ADDBY_CATEGORY, TagOrientation.Horizontal, location.Curve.Evaluate(0.5, true));
+                } 
             }
-        }
-
-        private RevitIdNamePair GetMaterialType(Options options)
-        {
-            var types = _filter.GetMaterialTagSymbols();
-            var tagType = IdNamePair.GetByIdOrName(types, options.MaterialTag);
-            return new RevitIdNamePair(tagType);
         }
     }
 }

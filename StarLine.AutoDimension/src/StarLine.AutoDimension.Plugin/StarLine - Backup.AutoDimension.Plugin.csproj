@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net4.8</TargetFramework>
@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if exist &quot;C:\ProgramData\Autodesk\ApplicationPlugins&quot; robocopy &quot;$(TargetDir)\&quot; &quot;C:\ProgramData\Autodesk\ApplicationPlugins\StarLine.AutoDimension.bundle\Contents\Windows\RVT2022\\&quot; /s &#xD;&#xA;REM if exist &quot;C:\ProgramData\Autodesk\ApplicationPlugins&quot; robocopy &quot;$(SolutionDir)\PackageContents.XML&quot; &quot;C:\ProgramData\Autodesk\ApplicationPlugins\StarLine.AutoDimension.bundle\&quot;&#xD;&#xA;if %25errorlevel%25 geq 8 exit 1&#xD;&#xA;exit 0&#xD;&#xA;&#xD;&#xA;" />
+    <Exec Command="REM if $(ConfigurationName) == Release &quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x64\signtool.exe&quot; sign /n &quot;Solid&quot; /fd sha256 /du https://solidcad.ca/ /t http://timestamp.digicert.com &quot;$(TargetPath)&quot;&#xD;&#xA;&#xD;&#xA;REM robocopy &quot;$(TargetDir)\&quot; &quot;$(SolutionDir)StarLine.AutoDimension.bundle\Contents\Windows\RVT2023\\&quot; /s&#xD;&#xA;&#xD;&#xA;REM if %25errorlevel%25 geq 8 exit 1&#xD;&#xA;REM exit 0&#xD;&#xA;&#xD;&#xA;if exist &quot;$(AppData)\Autodesk\REVIT\Addins\2023&quot; copy &quot;$(ProjectDir)*.addin&quot; &quot;$(AppData)\Autodesk\REVIT\Addins\2023\StarLine.AutoDimension.bundle\Contents\Windows\RVT2023\\&quot;&#xD;&#xA;if exist &quot;$(AppData)\Autodesk\REVIT\Addins\2023&quot; copy &quot;$(ProjectDir)$(OutputPath)*.dll&quot; &quot;$(AppData)\Autodesk\REVIT\Addins\2023\StarLine.AutoDimension.bundle\Contents\Windows\RVT2023\\&quot;" />
   </Target>
 
   <ItemGroup>
@@ -26,11 +26,11 @@
 
   <ItemGroup>
     <Reference Include="RevitAPI">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2023\RevitAPI.dll</HintPath>
+      <HintPath>..\..\libs\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2023\RevitAPIUI.dll</HintPath>
+      <HintPath>..\..\libs\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

@@ -17,6 +17,8 @@ namespace StarLine.AutoDimension.Core.Domain
 
         public IdNamePair GenericTag { get; set; }
 
+        public IdNamePair GenericTag2 { get; set; }
+
         public IdNamePair GenericAnnotation { get; set; }
 
         public IdNamePair DimensionStyle { get; set; }
@@ -25,6 +27,11 @@ namespace StarLine.AutoDimension.Core.Domain
 
         public bool HorizontalDimensionBottom { get; set; }
 
+        public bool VerticalDimensionLeft { get; set; }
+
+        public bool SupressVerticalDimension { get; set; } //new v 1.5.0.2
+        public bool SupressHorizontalDimension { get; set; } //new v 1.5.0.6
+        public bool  ReplaceWithText { get; set; } //new v 1.5.0.7
         public bool AutoAlignDimension { get; set; }
 
         public double CurtainTagOffset { get; set; }
@@ -48,6 +55,10 @@ namespace StarLine.AutoDimension.Core.Domain
         public double FirstDimLineHorizontal { get; set; }
 
         public double FirstDimLineVertical { get; set; }
+
+        public bool SuppressAnnotation { get; set; }
+
+        public bool SuppressGenericTag { get; set; }
 
         public WallReference FindReference(ReferencePair pair)
         {

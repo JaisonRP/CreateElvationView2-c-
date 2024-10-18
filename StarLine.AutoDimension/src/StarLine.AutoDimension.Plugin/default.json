@@ -8,7 +8,7 @@
     {
       "RefType": 3,
       "TypeName": "Rough Bottom",
-      "PlaneName": "Rough_Bottom"
+      "PlaneName": "RO_Bottom"
     },
     {
       "RefType": 7,
@@ -18,12 +18,12 @@
     {
       "RefType": 10,
       "TypeName": "Interior Rough Bottom",
-      "PlaneName": "Interior.Rough.Bottom"
+      "PlaneName": "Interior_RO_Bottom"
     },
     {
       "RefType": 11,
       "TypeName": "Interior Heel Bottom",
-      "PlaneName": "Interior.Heel.Bottom"
+      "PlaneName": "Interior_Heel_Bottom"
     },
     {
       "RefType": 12,
@@ -85,22 +85,22 @@
     {
       "RefType": 13,
       "TypeName": "Extend Jamb Left",
-      "PlaneName": "Extend.Jamb.Left"
+      "PlaneName": "Extend_Jamb_Left"
     },
     {
       "RefType": 12,
-      "TypeName": "CL TBar 1",
-      "PlaneName": "CL.TBar.Vertical"
+      "TypeName": "CL_TBar_Vertical",
+      "PlaneName": "CL_TBar_Vertical"
     },
     {
       "RefType": 14,
       "TypeName": "Extend Jamb Right",
-      "PlaneName": "Extend.Jamb.Right"
+      "PlaneName": "Extend_Jamb_Right"
     },
     {
       "RefType": 9,
       "TypeName": "Heel Right",
-      "PlaneName": "Heel.Right"
+      "PlaneName": "Heel_Right"
     },
     {
       "RefType": 5,
@@ -120,9 +120,13 @@
     "Id": 364404,
     "Name": "SW_MaterialTag"
   },
-  "GenericTag": {
+  "GenericTag": { //cornerpost tags
     "Id": 364715,
     "Name": "Typical Installation - Inside Corner"
+  },
+  "GenericTag2": {
+        "Id": 20199183,
+    "Name": "profcodetag"
   },
   "GenericAnnotation": {
     "Id": 325992,
@@ -131,13 +135,15 @@
   "SuppressCornerPostTag": false,
   "HorizontalDimensionBottom": false,
   "AutoAlignDimension": false,
-  "CurtainTagOffset": 0.0,
+  "CurtainTagOffset": -1.0,
   "DoorTagOffset": -0.0625,
-  "MaterialTagOffset": 0.020833333333333336,
-  "CornerPostTagOffset": 0.0,
+  "MaterialTagOffset": 0.0,
+  "CornerPostTagOffset": 0.0625,
   "MoveSegmentsLessThan": 1.0,
-  "MoveSegmentsBy": 1.0,
+  "MoveSegmentsBy": 0.7,
   "StackSegmentsCloserThan": 1.0,
   "StackingDistance": 1.0,
-  "DimLinesDistance": 1.0
+  "DimLinesDistance": 1.0,
+  "FirstDimLineHorizontal": 2.0,
+  "FirstDimLineVertical": 2.0
 }

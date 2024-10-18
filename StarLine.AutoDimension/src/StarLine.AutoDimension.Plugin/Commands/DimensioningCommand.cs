@@ -39,9 +39,15 @@ namespace StarLine.AutoDimension.Plugin.Commands
                     if (result.Document.GetElement(result.Id) is Wall wall && wall.CurtainGrid != null)
                     {
                         var wallWrapper = WallWrapper.Build(wall, doc, result);
-                        foreach (var elementId in selector.CollectGrid())
+                        foreach (var elementId in selector.CollectGrids())
                         {
                             wallWrapper.AddGridLine(elementId);
+                        }
+
+                        foreach (var id in selector.CollectLevels())
+                        {
+                            var level = new LevelWrapper(id, doc);
+                            wallWrapper.AddLevel(level);
                         }
 
                         var options = OptionSerializer.ReadCurrent();

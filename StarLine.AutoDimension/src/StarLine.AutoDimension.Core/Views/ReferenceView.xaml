@@ -20,8 +20,8 @@
         <DataGrid Grid.Row="1" Margin="5" CanUserAddRows="False" SelectedItem="{Binding SelectedReference}"
                   ItemsSource="{Binding References}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Reference Plane" Width="0.4*" Binding="{Binding TypeName}" IsReadOnly="True" />
-                <DataGridTextColumn Header="Name" IsReadOnly="False" Width="0.6*" Binding="{Binding PlaneName}" />
+                <DataGridTextColumn Header="Reference Plane" Width="200" Binding="{Binding TypeName}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Name" IsReadOnly="False" Width="200" Binding="{Binding PlaneName}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

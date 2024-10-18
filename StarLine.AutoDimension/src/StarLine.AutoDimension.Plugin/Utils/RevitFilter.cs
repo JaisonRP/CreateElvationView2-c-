@@ -28,6 +28,16 @@ namespace StarLine.AutoDimension.Plugin.Utils
             return GetFamilySymbols(BuiltInCategory.OST_MaterialTags);
         }
 
+        public List<RevitIdNamePair> GetGenericModelTagSymbols()
+        {
+            return GetFamilySymbols(BuiltInCategory.OST_GenericModelTags);
+        }
+
+        public List<RevitIdNamePair> GetAnnotationSymbols()
+        {
+            return GetFamilySymbols(BuiltInCategory.OST_GenericAnnotation);
+        }
+
         public List<RevitIdNamePair> GetFamilySymbols(BuiltInCategory category)
         {
             var collector = new FilteredElementCollector(_document).OfCategory(category).OfClass(typeof(FamilySymbol));

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Autodesk.Revit.DB;
 using StarLine.AutoDimension.Core.Domain;
 
@@ -35,8 +36,11 @@ namespace StarLine.AutoDimension.Plugin.Utils
         public IList<ReferencePair> GetNamedReferences(FamilyInstance fs, SelectionResult selectionResult)
         {
             var pairs = new List<ReferencePair>();
-            ExtractRef(fs, pairs, FamilyInstanceReferenceType.StrongReference, selectionResult);
-            ExtractRef(fs, pairs, FamilyInstanceReferenceType.WeakReference, selectionResult);
+            var types = Enum.GetValues(typeof(FamilyInstanceReferenceType)).Cast<FamilyInstanceReferenceType>();
+            foreach (var familyInstanceReferenceType in types)
+            {
+                ExtractRef(fs, pairs, familyInstanceReferenceType, selectionResult);
+            }
 
             return pairs;
         }
@@ -50,7 +54,6 @@ namespace StarLine.AutoDimension.Plugin.Utils
                 var n = fs.GetReferenceName(reference);
                 if (!string.IsNullOrWhiteSpace(n))
                 {
-                    //var isElementInDoc = selectionResult.RevitLinkInstance == null;
                     var representation = GetRepresentation(reference, selectionResult, fs.Document);
                     pairs.Add(new ReferencePair(reference.ElementId.IntegerValue, n, representation));
                 }

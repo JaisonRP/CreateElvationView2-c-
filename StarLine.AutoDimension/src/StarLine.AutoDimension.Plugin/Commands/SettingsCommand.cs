@@ -44,17 +44,17 @@ namespace StarLine.AutoDimension.Plugin.Commands
                 var materialSymbols = collector.GetMaterialTagSymbols();
                 vm.SetMaterialTags(materialSymbols);
 
-                var genericSymbols = collector.GetFamilySymbols(BuiltInCategory.OST_GenericModelTags);
+                var genericSymbols = collector.GetGenericModelTagSymbols();
                 vm.SetGenericTags(genericSymbols);
 
-                var annotationSymbols = collector.GetFamilySymbols(BuiltInCategory.OST_GenericAnnotation);
+                var annotationSymbols = collector.GetAnnotationSymbols();
                 vm.SetAnnotationSymbols(annotationSymbols);
 
                 var dimensionStyles = collector.GetDimensionStyles(DimensionStyleType.Linear);
                 vm.SetDimensionStyles(dimensionStyles);
 
                 vm.ReadFromOptions(options);
-                win.ShowDialog();
+                win.Show();
                 trans.Commit();
             }
 

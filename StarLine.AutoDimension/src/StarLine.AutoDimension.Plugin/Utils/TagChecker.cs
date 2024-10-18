@@ -8,6 +8,7 @@ namespace StarLine.AutoDimension.Plugin.Utils
     {
         private readonly Document _currentDocument;
         private readonly HashSet<int> _taggedIds = new HashSet<int>();
+        private readonly HashSet<int> _taggedMaterialIds = new HashSet<int>();
         private bool _isInitialized;
 
         public TagChecker(Document currentDocument)
@@ -21,6 +22,13 @@ namespace StarLine.AutoDimension.Plugin.Utils
             return _taggedIds.Contains(id.IntegerValue);
         }
 
+        public bool IsMaterialTagged(FamilyInstance fi)
+        {
+            Init();
+            return _taggedMaterialIds.Contains(fi.Id.IntegerValue) ||
+                   fi.GetSubComponentIds().Any(x => _taggedMaterialIds.Contains(x.IntegerValue));
+        }
+
         private void Init()
         {
             if (_isInitialized)
@@ -28,25 +36,32 @@ namespace StarLine.AutoDimension.Plugin.Utils
                 return;
             }
 
-            var collector = new FilteredElementCollector(_currentDocument, _currentDocument.ActiveView.Id)
-                .OfClass(typeof(IndependentTag)).OfType<IndependentTag>().Select(x => x.GetTaggedElementIds());
+            var tags = new FilteredElementCollector(_currentDocument, _currentDocument.ActiveView.Id)
+                .OfClass(typeof(IndependentTag)).OfType<IndependentTag>();
 
-            foreach (var item in collector)
+            foreach (var tag in tags)
             {
-                foreach (var linkElementId in item)
+                if (tag.IsMaterialTag)
                 {
-                    if (linkElementId.HostElementId != ElementId.InvalidElementId)
-                    {
-                        _taggedIds.Add(linkElementId.HostElementId.IntegerValue);
-                    }
-                    else
-                    {
-                        _taggedIds.Add(linkElementId.LinkedElementId.IntegerValue);
-                    }
+                    AddToList(tag, _taggedMaterialIds);
+                }
+                else if (!tag.IsMulticategoryTag)
+                {
+                    AddToList(tag, _taggedIds);
                 }
             }
 
-            _isInitialized = true;
+            _isInitialized = true; // check this list , tags being duplicated
+        }
+
+        private static void AddToList(IndependentTag tag, ISet<int> set)
+        {
+            foreach (var linkElementId in tag.GetTaggedElementIds())
+            {
+                set.Add(linkElementId.HostElementId != ElementId.InvalidElementId
+                    ? linkElementId.HostElementId.IntegerValue
+                    : linkElementId.LinkedElementId.IntegerValue);
+            }
         }
     }
 }

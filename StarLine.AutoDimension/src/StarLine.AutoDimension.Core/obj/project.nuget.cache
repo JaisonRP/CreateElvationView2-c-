@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2e0rrkhYDGYazf7maMNlJLTbOZjIGgRLDZvJFAyeMMTLKMBw/NcYysPlIvyUBeNcung8IhbmSvcITo5zlCV1DA==",
+  "dgSpecHash": "uGo89bi1J9805G6myNsqCOBWRZXC0pwis25V47fLDKjqu9d3UPpQQl6gaRB0FqqUkyWJc/KG555BjyBlseM0vA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj",
+  "projectFilePath": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\NShah\\.nuget\\packages\\microsoft-windowsapicodepack-core\\1.1.4\\microsoft-windowsapicodepack-core.1.1.4.nupkg.sha512",
     "C:\\Users\\NShah\\.nuget\\packages\\microsoft-windowsapicodepack-shell\\1.1.4\\microsoft-windowsapicodepack-shell.1.1.4.nupkg.sha512",

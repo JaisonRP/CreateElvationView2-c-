@@ -834,11 +834,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
+      "projectUniqueName": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
       "projectName": "StarLine.AutoDimension.Plugin",
-      "projectPath": "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
+      "projectPath": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
       "packagesPath": "C:\\Users\\NShah\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\NShah\\Source\\Repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\obj\\",
+      "outputPath": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Plugin\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\NShah\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -855,8 +855,8 @@
         "net48": {
           "targetAlias": "net4.8",
           "projectReferences": {
-            "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj": {
-              "projectPath": "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj"
+            "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj": {
+              "projectPath": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj"
             }
           }
         }
@@ -876,7 +876,7 @@
             "version": "[8.1.97, )"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

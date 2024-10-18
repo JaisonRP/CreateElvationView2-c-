@@ -1,3 +1,5 @@
 is_global = true
 build_property.RootNamespace = StarLine.AutoDimension.Core
-build_property.ProjectDir = C:\Users\NShah\source\repos\revitautodimension\StarLine.AutoDimension\src\StarLine.AutoDimension.Core\
+build_property.ProjectDir = C:\Users\NShah\source\repos\RevitAutodimension\StarLine.AutoDimension\src\StarLine.AutoDimension.Core\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

@@ -1,9 +1,15 @@
 {
   "profiles": {
     "StarLine.AutoDimension.Plugin": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Program Files\\Autodesk\\Revit 2023\\Revit.exe"
     },
-    "Profile 1": {
+    "Revit-Testproject": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Autodesk\\Revit 2023\\Revit.exe",
+      "commandLineArgs": "\"U:\\Revit Projects\\Validator Testing.rvt\""
+    },
+    "Revit_LocalRun": {
       "commandName": "Executable",
       "executablePath": "C:\\Program Files\\Autodesk\\Revit 2023\\Revit.exe"
     }

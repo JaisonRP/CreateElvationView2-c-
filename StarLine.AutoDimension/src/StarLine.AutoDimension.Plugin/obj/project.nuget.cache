@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WweIZw1JP5ryPx+u/w7FdvOU2kzY3P9yDo/gqmEnIMaacOulniqgBLT7yn97l4qY2bvcsWGogtEJJgAxoBGhNw==",
+  "dgSpecHash": "Z4wtpFVn+/s0P2XkXKRGGrE3R/ZrjRopnKeGgv4keOtyu468EqGkWHYcJoP0gY8nEaRoyWP/Bk/4GYgFs4oTuw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\NShah\\source\\repos\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
+  "projectFilePath": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\NShah\\.nuget\\packages\\dryioc.dll\\4.7.7\\dryioc.dll.4.7.7.nupkg.sha512",
     "C:\\Users\\NShah\\.nuget\\packages\\microsoft-windowsapicodepack-core\\1.1.4\\microsoft-windowsapicodepack-core.1.1.4.nupkg.sha512",

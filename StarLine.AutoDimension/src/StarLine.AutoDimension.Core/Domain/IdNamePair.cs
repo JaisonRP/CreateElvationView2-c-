@@ -15,9 +15,9 @@ namespace StarLine.AutoDimension.Core.Domain
 
         public string Name { get; }
 
-        public static IdNamePair GetByIdOrName(IEnumerable<IdNamePair> list, IdNamePair filter)
+        public static IdNamePair GetByIdOrName(IEnumerable<IdNamePair> list, IdNamePair filter) // Static method to retrieve an IdNamePair from a collection based on Id or Name
         {
-            return list.FirstOrDefault(x => x.Id == filter?.Id || string.Equals(x.Name, filter?.Name));
+            return list.FirstOrDefault(x => x.Id == filter?.Id || string.Equals(x.Name, filter?.Name));// Uses LINQ to find the first IdNamePair matching the provided filter (either by Id or Name)
         }
     }
 }

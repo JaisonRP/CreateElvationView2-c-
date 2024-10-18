@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace StarLine.AutoDimension.Core.Domain
 {
-    public class WallPanel
+    public class WallPanel : WallPanelBase
     {
-        public WallPanel(int id)
+        public WallPanel(int id) : base(id)
         {
-            Id = id;
             References = new List<WallReference>();
         }
 
-        public int Id { get; }
-
-        public bool IsByPass { get; set; }
-
-        public string Series { get; set; }
-
-        public bool IsDoor => !string.IsNullOrEmpty(Series) &&
-                              Series.StartsWith("D", StringComparison.InvariantCultureIgnoreCase);
-
         public IList<WallReference> References { get; }
+
+        public string FamilyName { get; set; }
+
+        public double RoHeight { get; set; }
+        
 
         public void AddReference(WallReference reference)
         {
@@ -34,79 +28,170 @@ namespace StarLine.AutoDimension.Core.Domain
                 x.Direction == direction && x.ReferenceRepresentation.RefType == refType);
         }
 
+        public IEnumerable<WallReference> GetAllByType(Direction direction, RefType refType)
+        {
+            return References.Where(x =>
+                x.Direction == direction && x.ReferenceRepresentation.RefType == refType);
+        }
+
         public IList<DimLine> GetDimensionPair(Direction direction)
         {
             var lines = new List<DimLine>();
             var queryable = References.AsQueryable().Where(x => x.Direction == direction);
-            if (direction == Direction.Horizontal)
+            // Check if the direction is horizontal
+            if (direction == Direction.Horizontal)  
             {
-                var ts = !IsByPass
-                    ? queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.TopSlab)
-                    : queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.InteriorRoughBottom);
-                var bs = !IsByPass
-                    ? queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.BottomSlab)
-                    : queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.InteriorHeelBottom);
+                // Get references for various components
                 var rt = queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.RoughTop);
                 var rb = queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.RoughBottom);
                 var hb = queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.HeelBottom);
                 var ht = queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.HeelTop);
                 var bars = queryable.Where(x => x.ReferenceRepresentation.RefType == RefType.ClBar).ToList();
 
-                if (ts != null && bs != null)
+                if (IsByPass) // Main outside
                 {
-                    var dimLine = new DimLine();
-                    dimLine.AddReference(ts);
-                    dimLine.AddReference(bs);
-                    var prefix = IsByPass ? "Int" : string.Empty;
-                    if (IsDoor)
+
+                    // Create dimension line for tbar dimensions
+                    if (bars.Count > 0)
                     {
-                        prefix += " Door";
-                        prefix = prefix.Trim();
+                        var barDimLine = new DimLine();
+                        barDimLine.AddReference(ht);
+                        foreach (var wallReference in bars.OrderBy(x => x.ReferenceRepresentation.ExtractIndex()))
+                        {
+                            barDimLine.AddReference(wallReference);
+                        }
+
+                        barDimLine.AddReference(hb);
+                        if (barDimLine.IsDrawable)
+                        {
+                            lines.Add(barDimLine);
+                        }
                     }
 
-                    dimLine.AddSegment(new DimSegment(0, prefix, "R.O."));
-                    lines.Add(dimLine);
-                }
-
-                if (rt != null && rb != null && hb != null && ht != null)
-                {
-                    var dimLine = new DimLine();
-                    dimLine.AddReference(ht);
-                    dimLine.AddReference(rt);
-                    dimLine.AddReference(rb);
-                    dimLine.AddReference(hb);
-                    var prefix = IsDoor ? "Door" : string.Empty;
-                    dimLine.AddSegment(new DimSegment(1, prefix, "H.D."));
-                    lines.Add(dimLine);
-                }
-
-                if (hb != null && ht != null && bars.Count > 0)
-                {
-                    var dimLine = new DimLine();
-                    dimLine.AddReference(ht);
-                    foreach (var wallReference in bars.OrderBy(x => x.ReferenceRepresentation.ExtractIndex()))
+                    // Create dimension line for HD dimensions
+                    var heelDimLine = new DimLine();
+                    heelDimLine.AddReference(rt);
+                    heelDimLine.AddReference(ht);
+                    heelDimLine.AddReference(hb);
+                    heelDimLine.AddReference(rb);
+                    if (heelDimLine.IsDrawable)
                     {
-                        dimLine.AddReference(wallReference);
+                        if (heelDimLine.References.Count == 4)
+                        {
+                            heelDimLine.AddSegment(new DimSegment(1, string.Empty, "H.D."));
+                        }
+
+                        lines.Add(heelDimLine);
                     }
 
-                    dimLine.AddReference(hb);
-                    lines.Add(dimLine);
+                    // Create dimension line for RO dimensions
+                    var outDimLine = new DimLine();
+                    outDimLine.AddReference(rt);
+                    outDimLine.AddReference(rb);
+                    if (outDimLine.IsDrawable)
+                    {
+                        outDimLine.AddSegment(new DimSegment(0, string.Empty, "R.O. (Outside Dimension)"));
+                        lines.Add(outDimLine);
+                    }
+                }
+                else if (IsDoor) // Door
+                {
+                    {
+                        var dimLine = new DimLine();
+                        dimLine.AddReference(rt);
+                        dimLine.AddReference(rb);
+                        if (dimLine.IsDrawable)
+                        {
+                            dimLine.AddSegment(new DimSegment(0, string.Empty, "DOOR R.O."));
+                            lines.Add(dimLine);
+                        }
+                    }
+
+                    {
+                        var dimLine = new DimLine();
+                        dimLine.AddReference(rt);
+                        dimLine.AddReference(ht);
+                        dimLine.AddReference(hb);
+                        dimLine.AddReference(rb);
+                        if (dimLine.IsDrawable)
+                        {
+                            if (dimLine.References.Count == 4)
+                            {
+                                dimLine.AddSegment(new DimSegment(1, string.Empty, "DOOR H.D."));
+                            }
+
+                            lines.Add(dimLine);
+                        }
+
+                        if (bars.Count > 0)
+                        {
+                            var barDimLine = new DimLine();
+                            barDimLine.AddReference(ht);
+                            foreach (var wallReference in bars.OrderBy(x => x.ReferenceRepresentation.ExtractIndex()))
+                            {
+                                barDimLine.AddReference(wallReference);
+                            }
+
+                            barDimLine.AddReference(hb);
+                            if (barDimLine.IsDrawable)
+                            {
+                                lines.Add(barDimLine);
+                            }
+                        }
+                    }
+                }
+                else // Main inside
+                {
+                    if (bars.Count > 0)
+                    {
+                        var barDimLine = new DimLine();
+                        barDimLine.AddReference(ht);
+                        foreach (var wallReference in bars.OrderBy(x => x.ReferenceRepresentation.ExtractIndex()))
+                        {
+                            barDimLine.AddReference(wallReference);
+                        }
+
+                        barDimLine.AddReference(hb);
+                        if (barDimLine.IsDrawable)
+                        {
+                            lines.Add(barDimLine);
+                        }
+                    }
+
+                    var heelDimLine = new DimLine();
+                    heelDimLine.AddReference(rt);
+                    heelDimLine.AddReference(ht);
+                    heelDimLine.AddReference(hb);
+                    heelDimLine.AddReference(rb);
+                    if (heelDimLine.IsDrawable)
+                    {
+                        if (heelDimLine.References.Count == 4)
+                        {
+                            heelDimLine.AddSegment(new DimSegment(1, string.Empty, "INT. H.D."));
+                        }
+
+                        lines.Add(heelDimLine);
+                    }
+
+                    var outDimLine = new DimLine();
+                    outDimLine.AddReference(rt);
+                    outDimLine.AddReference(rb);
+                    if (outDimLine.IsDrawable)
+                    {
+                        outDimLine.AddSegment(new DimSegment(0, string.Empty, "R.O. (Inside Dimension)"));
+                        lines.Add(outDimLine);
+                    }
+
+                    
                 }
             }
+            // Check if the direction is Vertical
             else
             {
                 var hl = queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.HeelLeft);
                 var hr = queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.HeelRight);
-                if (hl != null && hr != null)
-                {
-                    var dimLine = new DimLine();
-                    dimLine.AddReference(hl);
-                    dimLine.AddReference(hr);
-                    lines.Add(dimLine);
-                }
-
                 var bars = queryable.Where(x => x.ReferenceRepresentation.RefType == RefType.ClBarVertical).ToList();
-                if (hl != null && hr != null && bars.Count > 0)
+                if (hl != null && hr != null)
                 {
                     var dimLine = new DimLine();
                     dimLine.AddReference(hl);
@@ -120,7 +205,39 @@ namespace StarLine.AutoDimension.Core.Domain
                 }
             }
 
+            // Annotation: The following block of code is intended to append the FrameTag to the Prefix property
+            // of each DimSegment within each DimLine in the lines collection. It can be uncommented if the
+            // FrameTag information needs to be included in the segment prefixes.
+
+            // Uncomment the block below to append FrameTag to the Prefix property of each DimSegment
+            /*
+            foreach (var dimLine in lines)
+            {
+                foreach (var dimLineSegment in dimLine.Segments)
+                {
+                    // Append FrameTag to the Prefix property of each DimSegment
+                    dimLineSegment.Prefix += $" ({FrameTag})";
+                }
+            }
+            */
+
+
             return lines;
+        }
+
+        public void AppendToDim(DimLine dimLine, Direction direction)
+        {
+            var queryable = References.AsQueryable().Where(x => x.Direction == direction);
+            if (direction == Direction.Vertical)
+            {
+                var bars = queryable.Where(x => x.ReferenceRepresentation.RefType == RefType.ClBarVertical).ToList();
+                foreach (var wallReference in bars.OrderBy(x => x.ReferenceRepresentation.ExtractIndex()))
+                {
+                    dimLine.AddReference(wallReference);
+                }
+
+                dimLine.AddReference(queryable.FirstOrDefault(x => x.ReferenceRepresentation.RefType == RefType.HeelRight));
+            }
         }
     }
 }

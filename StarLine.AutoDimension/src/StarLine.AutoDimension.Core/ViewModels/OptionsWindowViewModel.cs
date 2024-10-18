@@ -71,6 +71,12 @@ namespace StarLine.AutoDimension.Core.ViewModels
             set => Set(value);
         }
 
+        public IdNamePair GenericTag2
+        {
+            get => Get<IdNamePair>();
+            set => Set(value);
+        }
+
         public IdNamePair GenericAnnotation
         {
             get => Get<IdNamePair>();
@@ -89,11 +95,47 @@ namespace StarLine.AutoDimension.Core.ViewModels
             set => Set(value);
         }
 
+        public bool SuppressAnnotation
+        {
+            get => Get<bool>();
+            set => Set(value);
+        }
+
+        public bool SuppressGenericTag
+        {
+            get => Get<bool>();
+            set => Set(value);
+        }
+
         public bool HorizontalDimensionBottom
         {
             get => Get<bool>();
             set => Set(value);
         }
+
+        public bool VerticalDimensionLeft
+        {
+            get => Get<bool>();
+            set => Set(value);
+        }
+
+        public bool SupressVerticalDimension
+        {
+            get => Get<bool>();
+            set => Set(value);
+        }
+
+        public bool SupressHorizontalDimension
+        {
+            get => Get<bool>();
+            set => Set(value);
+        }
+        public bool ReplaceWithText
+        {
+            get => Get<bool>();
+            set => Set(value);
+        }
+        
 
         public bool AutoAlignDimension
         {
@@ -228,11 +270,7 @@ namespace StarLine.AutoDimension.Core.ViewModels
                 return;
             }
 
-            if (p is OptionsWindow mainWindow)
-            {
-                OptionSerializer.WriteCurrent(ExportOptions());
-                mainWindow.Close();
-            }
+            OptionSerializer.WriteCurrent(ExportOptions());
         }
 
         public void ReadFromOptions(Options options)
@@ -241,10 +279,17 @@ namespace StarLine.AutoDimension.Core.ViewModels
             CurtainPanelTagDoors = IdNamePair.GetByIdOrName(DoorTags, options.CurtainPanelTagDoors);
             MaterialTag = IdNamePair.GetByIdOrName(MaterialTags, options.MaterialTag);
             GenericTag = IdNamePair.GetByIdOrName(GenericTags, options.GenericTag);
+            GenericTag2 = IdNamePair.GetByIdOrName(GenericTags, options.GenericTag2);
             GenericAnnotation = IdNamePair.GetByIdOrName(AnnotationSymbols, options.GenericAnnotation);
             DimensionStyle = IdNamePair.GetByIdOrName(DimensionStyles, options.DimensionStyle);
             SuppressCornerPostTag = options.SuppressCornerPostTag;
+            SuppressAnnotation = options.SuppressAnnotation;
+            SuppressGenericTag = options.SuppressGenericTag;
             HorizontalDimensionBottom = options.HorizontalDimensionBottom;
+            VerticalDimensionLeft = options.VerticalDimensionLeft;
+            SupressVerticalDimension = options.SupressVerticalDimension; // new option
+            SupressHorizontalDimension = options.SupressHorizontalDimension; // new option v 1.5.0.6
+            SupressHorizontalDimension = options.ReplaceWithText; // new option v 1.5.0.7
             AutoAlignDimension = options.AutoAlignDimension;
             CurtainTagOffset = options.CurtainTagOffset * ScaleFactor;
             DoorTagOffset = options.DoorTagOffset * ScaleFactor;
@@ -271,10 +316,17 @@ namespace StarLine.AutoDimension.Core.ViewModels
                 CurtainPanelTagDoors = CurtainPanelTagDoors,
                 MaterialTag = MaterialTag,
                 GenericTag = GenericTag,
+                GenericTag2 = GenericTag2,
                 GenericAnnotation = GenericAnnotation,
                 DimensionStyle = DimensionStyle,
                 SuppressCornerPostTag = SuppressCornerPostTag,
+                SuppressAnnotation = SuppressAnnotation,
+                SuppressGenericTag = SuppressGenericTag,
                 HorizontalDimensionBottom = HorizontalDimensionBottom,
+                VerticalDimensionLeft = VerticalDimensionLeft,
+                SupressVerticalDimension = SupressVerticalDimension, // new option
+                SupressHorizontalDimension = SupressHorizontalDimension, // new option v 1.5.0.6
+                ReplaceWithText = ReplaceWithText, // new option v 1.5.0.7
                 AutoAlignDimension = AutoAlignDimension,
                 CurtainTagOffset = CurtainTagOffset / ScaleFactor,
                 DoorTagOffset = DoorTagOffset / ScaleFactor,

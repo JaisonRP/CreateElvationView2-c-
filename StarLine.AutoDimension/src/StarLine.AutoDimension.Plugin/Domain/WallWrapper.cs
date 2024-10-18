@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Documents;
 using Autodesk.Revit.DB;
 using StarLine.AutoDimension.Core.Domain;
 using StarLine.AutoDimension.Core.Services;
@@ -16,6 +17,7 @@ namespace StarLine.AutoDimension.Plugin.Domain
 
         private readonly IList<WallPanel> _panels = new List<WallPanel>();
         private readonly IList<Grid> _gridLines = new List<Grid>();
+        private readonly IList<LevelWrapper> _levels = new List<LevelWrapper>();
 
         private WallWrapper(Wall wall, Document currentDocument, SelectionResult selectionResult)
         {
@@ -28,6 +30,21 @@ namespace StarLine.AutoDimension.Plugin.Domain
         public Face[] WallEnds => _wallEnds ?? (_wallEnds = FindEndFaces());
 
         public double WallHeight => _wall.get_Parameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM)?.AsDouble() ?? 0;
+
+        public double WallOffset => _wall.get_Parameter(BuiltInParameter.WALL_BASE_OFFSET)?.AsDouble() ?? 0;
+
+        public double WallLength
+        {
+            get
+            {
+                if (_wall.Location is LocationCurve loc)
+                {
+                    return loc.Curve.Length;
+                }
+
+                return 0;
+            }
+        }
 
         public static WallWrapper Build(Wall wall, Document document, SelectionResult selectionResult)
         {
@@ -42,7 +59,12 @@ namespace StarLine.AutoDimension.Plugin.Domain
                     var wallPanel = new WallPanel(panelId.IntegerValue)
                     {
                         IsByPass = fs.LookupParameter("Bypass")?.AsInteger() == 1,
-                        Series = fs.LookupParameter("Series")?.AsString() ?? string.Empty
+                        Series = fs.LookupParameter("Series")?.AsString() ?? string.Empty,
+                        FrameTag = fs.LookupParameter("FrameTag")?.AsString() ?? string.Empty,
+                        RoHeight = fs.LookupParameter("RO Height")?.AsDouble() ?? 0,
+                        IsHeelLeft = fs.Symbol.LookupParameter("Comp Channel Left Visibility")?.AsInteger() == 0  && fs.Symbol.LookupParameter("Corner Post Left")?.AsInteger() == 0,
+                        IsHeelRight = fs.Symbol.LookupParameter("Comp Channel Right Visibility")?.AsInteger() == 0 && fs.Symbol.LookupParameter("Corner Post Right")?.AsInteger() == 0,
+                        FamilyName = fs.Symbol.FamilyName
                     };
 
                     var pairs = utils.GetNamedReferences(fs, selectionResult);
@@ -85,10 +107,10 @@ namespace StarLine.AutoDimension.Plugin.Domain
                                 new ReferenceRepresentation(RefType.Other), Direction.Vertical,
                                 gridRef.ConvertToStableRepresentation(_currentDocument)));
                         }
-
+                        // Add the grid dimension line to the list
                         lines.Add(gridDimLine);
                     }
-
+                    // Create a dimension line for the wall
                     var wallDimLine = new DimLine();
                     for (var i = 0; i < 2; i++)
                     {
@@ -99,59 +121,140 @@ namespace StarLine.AutoDimension.Plugin.Domain
                     wallDimLine.Segments.Add(new DimSegment(0, string.Empty, "R.O."));
                     lines.Add(wallDimLine);
 
-                    var endPanels = FindEndPanels();
-                    if (endPanels.Length >= 2 &&
-                        endPanels[0] != ElementId.InvalidElementId &&
-                        endPanels[1] != ElementId.InvalidElementId)
+                    if (_panels.Count > 1)
                     {
-                        var startPanel = _panels.FirstOrDefault(x => x.Id == endPanels[0].IntegerValue);
-                        var endPanel = _panels.FirstOrDefault(x => x.Id == endPanels[1].IntegerValue);
-                        if (startPanel != null && endPanel != null)
-                        {
-                            var extJambLeft = startPanel.GetByType(direction, RefType.ExtendJambLeft);
-                            var extJambRight = startPanel.GetByType(direction, RefType.ExtendJambRight);
-                            var heelLeft = startPanel.GetByType(direction, RefType.HeelLeft);
-                            var heelRight = startPanel.GetByType(direction, RefType.HeelRight);
-                            var extDimLine = new DimLine();
-                            extDimLine.AddReference(FaceToReference(WallEnds[0], _currentDocument));
-                            extDimLine.AddReference(extJambLeft);
-                            extDimLine.AddReference(heelLeft);
-                            extDimLine.AddReference(heelRight);
-                            extDimLine.AddReference(extJambRight);
-                            extDimLine.AddReference(FaceToReference(WallEnds[1], _currentDocument));
-                            if (extDimLine.References.Count > 2)
-                            {
-                                if (heelLeft != null && heelRight != null)
-                                {
-                                    var index = extDimLine.References.Count == 5 ? 2 : 1;
-                                    var segment = new DimSegment(index, string.Empty, "H.D.");
-                                    extDimLine.AddSegment(segment);
-                                }
+                        var orderedPanels = _panels.OrderBy(x => x.FrameTag).ToArray();
+                        var startPanel = orderedPanels[0];
+                        var endPanel = orderedPanels[orderedPanels.Length - 1];
+                        //var extJambLeft = startPanel.GetByType(direction, RefType.ExtendJambLeft);
+                        //var extJambRight = endPanel.GetByType(direction, RefType.ExtendJambRight);
+                        
+                        var heelLeft = startPanel.GetByType(direction, RefType.HeelLeft);
 
-                                lines.Add(extDimLine);
+                        var heelRight = endPanel.GetByType(direction, RefType.HeelRight);
+                        var extDimLine = new DimLine();
+                        extDimLine.AddReference(FaceToReference(WallEnds[0], _currentDocument));
+                        //extDimLine.AddReference(extJambLeft);
+                        
+                        extDimLine.AddReference(heelLeft);
+                        extDimLine.AddReference(heelRight);
+                        // extDimLine.AddReference(extJambRight);
+                        extDimLine.AddReference(FaceToReference(WallEnds[1], _currentDocument));
+                        if (extDimLine.References.Count > 2)
+                        {
+                            if (heelLeft != null && heelRight != null)
+                            {
+                                var index = extDimLine.References.Count == 5 ? 2 : 1;
+                                var segment = new DimSegment(index, string.Empty, " O/A H.D.");
+                                extDimLine.AddSegment(segment);
+                            }
+
+                            lines.Add(extDimLine);
+                        }
+
+                    }
+                }
+                
+                var dimLine = new DimLine();
+                var isFirst = true;
+
+                // Iterate through panels, ordered by FrameTag
+                foreach (var panel in _panels.OrderBy(x => x.FrameTag))
+                {
+                    if (isFirst) // Check if it is the first panel
+                    {
+                        var heelLeft = panel.GetByType(direction, RefType.HeelLeft);
+                        dimLine.AddReference(heelLeft);
+                        isFirst = false;
+                    }
+                    // Append the panel geometry to the dimension line based on the specified direction
+                    panel.AppendToDim(dimLine, direction);
+                }
+
+                lines.Add(dimLine);
+            }
+            else // Check if the direction is not vertical or  is horizontal
+            {
+                var tempLines = new List<DimLine>();
+                foreach (var wallPanel in _panels.OrderBy(x => x.FrameTag))
+                {
+                    tempLines.AddRange(wallPanel.GetDimensionPair(direction));
+                }
+
+                tempLines.OrderBy(line => line.References.Count).ToList(); // sort the lines based on reference counts
+                
+                // Add all dimension lines from the temporary list to the main list of lines
+                lines.AddRange(tempLines);
+
+                // Before sorting
+                Console.WriteLine("Before Sorting:");
+                foreach (var line in lines)
+                {
+                    Console.WriteLine($"References count for line: {line.References.Count}");
+                }
+
+
+                //lines.OrderBy(line => line.References.Count).ToList(); // sort the lines based on reference counts
+
+                // Sorting
+                //var sortedLines = lines.OrderBy(line => line.References.Count).ToList();
+
+                // After sorting
+                //Console.WriteLine("After Sorting:");
+                //foreach (var line in sortedLines)
+                //{
+                   // Console.WriteLine($"References count for line: {line.References.Count}");
+                //}
+
+
+
+                // Define a function to get a reference for the RoughBottom of a wall panel
+                Func<WallPanel, WallReference> func = x => x.GetByType(direction, RefType.RoughBottom);
+                var rb = _panels.Where(x => func(x) != null).Select(x => func(x)).FirstOrDefault();
+                if (rb != null)
+                {
+                    var bars = new List<WallReference>(); 
+                    foreach (var panel in _panels)
+                    {
+                        foreach (var wallReference in panel.GetAllByType(direction, RefType.ClBar))
+                        {
+                            if (bars.FirstOrDefault(x => x.ReferenceRepresentation.TypeName ==
+                                                         wallReference.ReferenceRepresentation.TypeName) == null)
+                            {
+                                bars.Add(wallReference);
                             }
                         }
                     }
+
+                    //foreach (var wallReference in bars.OrderBy(x => x.ReferenceRepresentation.ExtractIndex()))
+                    foreach (var wallReference in bars.OrderBy(x => x.ReferenceRepresentation.ExtractIndex()))
+                    {
+                        var barLine = new DimLine();
+                        // Add ClBar reference and RoughBottom reference to the dimension line
+                        
+                        barLine.AddReference(rb);
+                        barLine.AddReference(wallReference);
+                        if (barLine.IsDrawable) // Check if the dimension line is drawable
+                        {
+                            lines.Add(barLine); // Add the dimension line to the main list of lines
+                        }
+                    }
                 }
-            }
+                
 
-            var tempLines = new List<DimLine>();
-            foreach (var wallPanel in _panels)
-            {
-                tempLines.AddRange(wallPanel.GetDimensionPair(direction));
-            }
-
-            if (direction == Direction.Vertical)
-            {
-                // we need them in 1 line
-                var groupId = Guid.NewGuid().ToString();
-                foreach (var t in tempLines)
+                var levelsDimLine = new DimLine();
+                foreach (var level in _levels)
                 {
-                    t.GroupId = groupId;
+                    levelsDimLine.AddReference(new WallReference(0, new ReferenceRepresentation(RefType.Other),
+                        direction, level.GetStringRepresentation()));
+                }
+
+                if (levelsDimLine.IsDrawable)
+                {
+                    lines.Add(levelsDimLine);
                 }
             }
-
-            lines.AddRange(tempLines);
+            
             return lines;
         }
 
@@ -197,6 +300,11 @@ namespace StarLine.AutoDimension.Plugin.Domain
             }
         }
 
+        public void AddLevel(LevelWrapper level)
+        {
+            _levels.Add(level);
+        }
+
         private WallReference FaceToReference(Face face, Document doc)
         {
             var refRep = new ReferenceRepresentation(RefType.Other);
@@ -239,41 +347,6 @@ namespace StarLine.AutoDimension.Plugin.Domain
             }
 
             return null;
-        }
-
-        private ElementId[] FindEndPanels()
-        {
-            var minDist = double.MaxValue;
-            var maxDist = double.MinValue;
-            var startPanel = ElementId.InvalidElementId;
-            var endPanel = ElementId.InvalidElementId;
-            var doc = _wall.Document;
-            if (_wall.Location is LocationCurve loc && loc.Curve is Line line)
-            {
-                foreach (var panelId in _wall.CurtainGrid.GetPanelIds())
-                {
-                    if (doc.GetElement(panelId) is FamilyInstance fs)
-                    {
-                        if (fs.Location is LocationCurve loc1 && loc1.Curve is Line line1)
-                        {
-                            var d = line.Origin.DistanceTo(line1.Origin);
-                            if (d < minDist)
-                            {
-                                minDist = d;
-                                startPanel = panelId;
-                            }
-
-                            if (d > maxDist)
-                            {
-                                maxDist = d;
-                                endPanel = panelId;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return new[] { startPanel, endPanel };
         }
     }
 }

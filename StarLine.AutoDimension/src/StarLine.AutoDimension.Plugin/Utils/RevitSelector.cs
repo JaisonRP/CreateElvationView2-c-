@@ -36,7 +36,34 @@ namespace StarLine.AutoDimension.Plugin.Utils
         {
             try
             {
-                var id = _uiDocument.Selection.GetElementIds().FirstOrDefault();
+                // Get the currently selected elements
+                ICollection<ElementId> selectedIds = _uiDocument.Selection.GetElementIds();
+
+                ElementId id;
+
+                // Check if the user has already selected elements
+                if (selectedIds.Count > 0)
+                {
+                    // Get the first selected element ID
+                    id = selectedIds.FirstOrDefault();
+                }
+                else
+                {
+                    // If no elements are selected, prompt the user to select an object
+                    Reference reference2 = _uiDocument.Selection.PickObject(ObjectType.Element, "Select an object");
+
+                    // Get the selected element ID
+                    id = reference2.ElementId;
+                }
+
+
+                // Prompt the user to select an object
+                //Reference reference2 = _uiDocument.Selection.PickObject(ObjectType.Element, "Select an object");
+                // Get the selected element ID
+                //var id = reference2.ElementId;
+                //var id = _uiDocument.Selection.GetElementIds().FirstOrDefault();
+
+
                 if (id != null)
                 {
                     if (_uiDocument.Document.GetElement(id) is Panel panel)
@@ -66,10 +93,17 @@ namespace StarLine.AutoDimension.Plugin.Utils
             }
         }
 
-        public ICollection<ElementId> CollectGrid()
+        public ICollection<ElementId> CollectGrids()
         {
             var collector = new FilteredElementCollector(_uiDocument.Document, _uiDocument.Document.ActiveView.Id)
                 .WhereElementIsNotElementType().OfCategory(BuiltInCategory.OST_Grids);
+            return collector.ToElementIds();
+        }
+
+        public ICollection<ElementId> CollectLevels()
+        {
+            var collector = new FilteredElementCollector(_uiDocument.Document, _uiDocument.Document.ActiveView.Id)
+                .WhereElementIsNotElementType().OfCategory(BuiltInCategory.OST_Levels);
             return collector.ToElementIds();
         }
     }
