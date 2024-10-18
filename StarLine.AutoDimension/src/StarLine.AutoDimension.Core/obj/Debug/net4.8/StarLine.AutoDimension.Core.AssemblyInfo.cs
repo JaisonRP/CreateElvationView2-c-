@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StarLine.AutoDimension.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.5.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e73c1bcf6c4dec56575a59eb7804d0c943a4240")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+12a995c37ee7039575fc4e1606881b5cd3ad96c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("StarLine.AutoDimension.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StarLine.AutoDimension.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.5.0.0")]
