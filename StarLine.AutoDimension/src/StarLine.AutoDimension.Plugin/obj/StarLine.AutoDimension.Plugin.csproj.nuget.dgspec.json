@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj": {}
+    "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj": {
+    "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj",
+        "projectUniqueName": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj",
         "projectName": "StarLine.AutoDimension.Core",
-        "projectPath": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj",
-        "packagesPath": "C:\\Users\\NShah\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Core\\obj\\",
+        "projectPath": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj",
+        "packagesPath": "C:\\Users\\jaiso\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\NShah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jaiso\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -53,21 +63,25 @@
               "version": "[4.1.0, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj": {
+    "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
+        "projectUniqueName": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
         "projectName": "StarLine.AutoDimension.Plugin",
-        "projectPath": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
-        "packagesPath": "C:\\Users\\NShah\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Plugin\\obj\\",
+        "projectPath": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj",
+        "packagesPath": "C:\\Users\\jaiso\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\NShah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jaiso\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -75,14 +89,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net48": {
             "targetAlias": "net4.8",
             "projectReferences": {
-              "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj": {
-                "projectPath": "C:\\Users\\NShah\\Documents\\SW_Annotation_Github\\SW_AutoAnnotations\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj"
+              "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj": {
+                "projectPath": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj"
               }
             }
           }
@@ -91,6 +106,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -102,7 +122,7 @@
               "version": "[8.1.97, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }

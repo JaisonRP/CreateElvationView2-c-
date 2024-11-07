@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <None Remove="Images\Dim.png" />
+    <None Remove="Images\Elevation.png" />
     <None Remove="Images\Settings.png" />
     <None Remove="Images\Tag.png" />
   </ItemGroup>
@@ -37,6 +38,7 @@
 
   <ItemGroup>
     <Resource Include="Images\Dim.png" />
+    <Resource Include="Images\Elevation.png" />
     <Resource Include="Images\Settings.png" />
     <Resource Include="Images\Tag.png" />
   </ItemGroup>

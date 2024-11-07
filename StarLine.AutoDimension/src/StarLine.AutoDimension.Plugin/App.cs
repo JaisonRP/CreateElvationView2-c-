@@ -40,6 +40,8 @@ namespace StarLine.AutoDimension.Plugin
             AddCommand(ribbonPanel, "Dimension", "Dim", typeof(DimensioningCommand));
             AddCommand(ribbonPanel, "Tag", "Tag", typeof(TagCommand));
             AddCommand(ribbonPanel, "Settings", "Settings", typeof(SettingsCommand));
+            AddCommand(ribbonPanel, "Elevation View", "Elevation", typeof(CreateElevationViewsCommand));
+
         }
 
         private static void AddCommand(RibbonPanel ribbonPanel, string commandName, string imageName, Type commandType)

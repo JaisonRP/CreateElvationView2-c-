@@ -18,6 +18,7 @@ namespace StarLine.AutoDimension.Plugin.Commands
     var uiDoc = commandData.Application.ActiveUIDocument;
     var doc = commandData.Application.ActiveUIDocument.Document;
 
+
     try
     {
         // Start a new transaction

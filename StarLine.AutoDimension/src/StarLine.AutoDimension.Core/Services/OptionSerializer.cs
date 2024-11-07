@@ -11,7 +11,7 @@ namespace StarLine.AutoDimension.Core.Services
         {
             var json = JsonConvert.SerializeObject(options, Formatting.Indented);
             File.WriteAllText(path, json);
-        }
+        }  
 
         public static Options Deserialize(string path)
         {
@@ -21,7 +21,7 @@ namespace StarLine.AutoDimension.Core.Services
                 var options = (Options)serializer.Deserialize(file, typeof(Options));
                 return options;
             }
-        }
+        }    
 
         public static void WriteCurrent(Options options)
         {

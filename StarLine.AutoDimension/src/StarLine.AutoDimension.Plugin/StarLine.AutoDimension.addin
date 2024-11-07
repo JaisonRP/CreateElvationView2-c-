@@ -7,7 +7,7 @@
         <Description>Util tools for AutoDimension</Description>
         <VisibilityMode>AlwaysVisible</VisibilityMode>
         <Assembly>StarLine.AutoDimension.Plugin.dll</Assembly>
-        <AddInId>556042BB-9DBA-4A5E-910C-7F12A7F806F5</AddInId>
+        <AddInId>9A555A6D-A779-458B-BD49-5DC77D27F4D9</AddInId>
         <VendorId>SOLIDCAD</VendorId>
     </AddIn>
 </RevitAddIns>

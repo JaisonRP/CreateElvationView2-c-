@@ -4,17 +4,17 @@
 library
 C#
 .cs
-C:\Users\NShah\source\repos\RevitAutodimension\StarLine.AutoDimension\src\StarLine.AutoDimension.Core\obj\Debug\net4.8\
+C:\Users\jaiso\OneDrive\Desktop\STW\revitautodimension\StarLine.AutoDimension\src\StarLine.AutoDimension.Core\obj\Debug\net4.8\
 StarLine.AutoDimension.Core
 none
 false
 TRACE;DEBUG;NETFRAMEWORK;NET48;
 
-21039401286
+3-1835351248
 
-2389609089
-34-1544732515
-Views\OptionsWindow.xaml;Views\ReferenceView.xaml;
+24-927713426
+34-372334564
+Services\Window1.xaml;Views\OptionsWindow.xaml;Views\ReferenceView.xaml;
 
-False
+True
 

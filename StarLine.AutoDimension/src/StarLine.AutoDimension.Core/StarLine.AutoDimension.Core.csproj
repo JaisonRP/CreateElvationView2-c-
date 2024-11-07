@@ -12,9 +12,21 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Services\dd.png" />
+      <None Remove="Services\ElevationView.gif" />
+      <None Remove="Services\logo.png" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="Tortuga.Anchor" Version="4.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Services\dd.png" />
+      <Resource Include="Services\ElevationView.gif" />
+      <Resource Include="Services\logo.png" />
     </ItemGroup>
 
     <ItemGroup>
