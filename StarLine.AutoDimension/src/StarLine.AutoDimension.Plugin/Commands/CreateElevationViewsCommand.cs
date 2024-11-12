@@ -33,7 +33,7 @@ namespace StarLine.AutoDimension.Plugin.Commands
             try
             {
 
-                IList<Element> curtain_walls    = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Walls).WhereElementIsNotElementType().ToElements();
+                IList<Element> curtain_walls        = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Walls).WhereElementIsNotElementType().ToElements();
 
                 List<string> wall_name              = new List<string>();
                 List<string> window_tag             = new List<string>();
@@ -47,8 +47,8 @@ namespace StarLine.AutoDimension.Plugin.Commands
                     string tag_name = curtainwall_windowtag != null ? curtainwall_windowtag.AsString() : "No Tag";
 
 
-                    string curtainwall_level_name = wall.LookupParameter("Base Constraint").AsValueString();
-                    string level_name = curtainwall_level_name != null ? curtainwall_level_name : "No Leve;";
+                    string wall_level_name = wall.LookupParameter("Base Constraint").AsValueString();
+                    string level_name = wall_level_name != null ? wall_level_name : "No Leve;";
 
                     string cn = "Window Group ID: "+tag_name + ", Level: " + level_name;
                     Combined_name.Add(cn);
@@ -62,10 +62,17 @@ namespace StarLine.AutoDimension.Plugin.Commands
 
                 }
 
-                Window1 ui_wimdow = new Window1(commbined_names);
-                ui_wimdow.ShowDialog();
 
-                List<string> selected_curtain_walls = ui_wimdow.selected_wall_name;
+                //================================================================================================================================
+                //collecting and loading UI
+                CreateElevationUI ui_window = new CreateElevationUI(commbined_names);
+                ui_window.ShowDialog();
+
+                List<string> selected_curtain_walls     = ui_window.selected_wall_name;
+                double elevation_offset_from_wall       = ui_window.elevation_offsetfromwall;
+                double elevation_view_depth             = ui_window.elevation_viewdepth;
+                double elevation_width_offset           = ui_window.elevation_widthoffset;
+                double elevation_height_offset          = ui_window.elevation_heightoffset;
 
 
                 string msg3 = "";
@@ -84,7 +91,6 @@ namespace StarLine.AutoDimension.Plugin.Commands
                         {
                             msg3 += windowgroupid + "\n";
                             selected_curtainwalls.Add(wall);
-                            
                         }
                     }
 
@@ -154,10 +160,15 @@ namespace StarLine.AutoDimension.Plugin.Commands
                     }
                 }
 
+
+
                 //TaskDialog.Show("Create Elevation View", template.Name);
 
 
                 string msgs = "";
+                string msg5 = "";
+                View current_view = null;
+                string curtainwall_level_name = null;
 
                 foreach (Wall curtainwall in selected_curtainwalls)
                 {
@@ -183,16 +194,12 @@ namespace StarLine.AutoDimension.Plugin.Commands
                     // CURTAIN WALL PROPERTIES 
                     double curtainWallHeight    = curtainwall.get_Parameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).AsDouble();
                     double curtainWallLength    = curtainwall.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsDouble();
-                    double in200                = UnitUtils.ConvertToInternalUnits(60, UnitTypeId.Centimeters);
-                    double indist               = UnitUtils.ConvertToInternalUnits(5, UnitTypeId.Inches);
-                    double indepth              = UnitUtils.ConvertToInternalUnits(15, UnitTypeId.Inches);
-
-                    double distance     = indist;
-                    double width        = curtainWallLength;
-                    double height       = curtainWallHeight;
-                    double widthOffset  = 1;
-                    double heightOffset = 3;
-                    double depth        = indepth;
+                    double distance             = UnitUtils.ConvertToInternalUnits(elevation_offset_from_wall, UnitTypeId.Inches);
+                    double width                = curtainWallLength;
+                    double height               = curtainWallHeight;
+                    double widthOffset          = UnitUtils.ConvertToInternalUnits(elevation_width_offset, UnitTypeId.Inches);
+                    double heightOffset         = UnitUtils.ConvertToInternalUnits(elevation_height_offset, UnitTypeId.Inches);
+                    double depth                = UnitUtils.ConvertToInternalUnits(elevation_view_depth, UnitTypeId.Inches);
 
 
                     //=======================================================================================================================
@@ -213,6 +220,18 @@ namespace StarLine.AutoDimension.Plugin.Commands
                     // start transaction
                     try
                     {
+                        curtainwall_level_name = curtainwall.LookupParameter("Base Constraint").AsValueString();
+                        
+
+                        foreach(View view in views)
+                        {
+                            if (view.Name.ToLower() == curtainwall_level_name.ToLower())
+                            {
+                                current_view = view;
+                            }
+                        }
+
+
                         Transaction transaction_w           = new Transaction(doc, "Create Viewsf For Windows");
                         transaction_w.Start();
                     
@@ -220,7 +239,7 @@ namespace StarLine.AutoDimension.Plugin.Commands
                         ElevationMarker elevation_marker    = ElevationMarker.CreateElevationMarker(doc, elevation_family_type.Id, new_center_point, 1);
                     
                         // Create Elevation using elevation marker
-                        ViewSection elevation_view          = elevation_marker.CreateElevation(doc, doc.ActiveView.Id, 0);
+                        ViewSection elevation_view          = elevation_marker.CreateElevation(doc, current_view.Id, 0);
 
                         //getting bouding box and setting min and max point 
                         BoundingBoxXYZ bbox = elevation_view.get_BoundingBox(null);
@@ -254,12 +273,12 @@ namespace StarLine.AutoDimension.Plugin.Commands
                             //setting view name
                             string curtainwall_windowtag    = curtainwall.LookupParameter("WindowTag").AsString();
                             Parameter elevation_view_name   = elevation_view.LookupParameter("View Name");
-                            //elevation_view_name.Set(curtainwall_windowtag);
+                            elevation_view_name.Set(curtainwall_windowtag);
 
                             //setting level details
-                            string level_name               = curtainwall.LookupParameter("Base Constraint").AsValueString();
+                            //string level_name               = curtainwall.LookupParameter("Base Constraint").AsValueString();
                             Parameter elevation_view_level  = elevation_view.LookupParameter("View Level");
-                            elevation_view_level.Set(level_name); 
+                            elevation_view_level.Set(curtainwall_level_name); 
                       
                         }
 
@@ -275,6 +294,11 @@ namespace StarLine.AutoDimension.Plugin.Commands
                         string msg = ex.Message;    
                     }
 
+                    if (current_view == null)
+                    {
+                        msg5 = "View Not Found: " + curtainwall_level_name + "(Level)";
+                        TaskDialog.Show("Create Elevation", msg5);
+                    }
 
                     //TaskDialog.Show("Create Elevation View", msgs);
 

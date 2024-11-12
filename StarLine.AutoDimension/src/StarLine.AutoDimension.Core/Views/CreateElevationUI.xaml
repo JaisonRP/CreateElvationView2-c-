@@ -1,0 +1,27 @@
+﻿<Window x:Class="StarLine.AutoDimension.Core.Services.CreateElevationUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StarLine.AutoDimension.Core.Services"
+        mc:Ignorable="d"
+        Title="SW Create Elevation Views" Height="561" Width="1014" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True">
+    <Grid Margin="0,0,10,8">
+        <Label Content="Select Walls:" HorizontalAlignment="Left" Margin="229,31,0,0" VerticalAlignment="Top" Height="24" Width="238"/>
+        <Image HorizontalAlignment="Left" Height="40" Margin="887,7,0,0" VerticalAlignment="Top" Width="100" Source="/StarLine.AutoDimension.Core;component/Services/logo.png"/>
+        <Button Content="Create Views" HorizontalAlignment="Left" Margin="652,441,0,0" VerticalAlignment="Top" Height="34" Width="166" Click="Button_Click" Background="#FFB40607" IsCancel="True" Foreground="White"/>
+        <ListBox x:Name="listboxui" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="232,56,366,23" SelectionMode="Multiple"/>
+        <Image HorizontalAlignment="Left" Height="505" Margin="10,10,0,0" VerticalAlignment="Top" Width="198" Source="/StarLine.AutoDimension.Core;component/Services/Elevation.png"/>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="832,441,0,0" VerticalAlignment="Top" Height="34" Width="166" Background="#FFB40607" Foreground="White" Click="Button_Click_1"/>
+        <Label Content="Elevation Offset From Wall:" HorizontalAlignment="Left" Margin="652,79,0,0" VerticalAlignment="Top" Height="24" Width="189"/>
+        <TextBox x:Name="textboxeleoffset" HorizontalAlignment="Left" Margin="874,82,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="115" TextAlignment="Center" Foreground="#FFB40607" FontSize="14"/>
+        <Label Content="Elevation View Depth(FarClip Offset):" HorizontalAlignment="Left" Margin="652,119,0,0" VerticalAlignment="Top" Height="24" Width="208"/>
+        <TextBox x:Name="textboxeledepth" HorizontalAlignment="Left" Margin="874,122,0,0" TextWrapping="Wrap" Text="13" VerticalAlignment="Top" Width="115" TextAlignment="Center" Foreground="#FFB40607" FontSize="14" RenderTransformOrigin="0.158,0.603"/>
+        <Label Content="Elevation View Width Offset:" HorizontalAlignment="Left" Margin="652,162,0,0" VerticalAlignment="Top" Height="35" Width="189"/>
+        <TextBox x:Name="textboxelewidth" HorizontalAlignment="Left" Margin="874,165,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="115" TextAlignment="Center" Foreground="#FFB40607" FontSize="14"/>
+        <Label Content="Elevation View Height Offset:" HorizontalAlignment="Left" Margin="652,202,0,0" VerticalAlignment="Top" Height="31" Width="189"/>
+        <TextBox x:Name="textboxeleheight" HorizontalAlignment="Left" Margin="874,205,0,0" TextWrapping="Wrap" Text="24" VerticalAlignment="Top" Width="115" TextAlignment="Center" Foreground="#FFB40607" FontSize="14"/>
+        <Label Content="Auto Tagging In Views:" HorizontalAlignment="Left" Margin="652,238,0,0" VerticalAlignment="Top" Height="31" Width="189"/>
+        <CheckBox x:Name="Autotag" Content="" HorizontalAlignment="Left" Margin="874,246,0,0" VerticalAlignment="Top" Width="115"/>
+    </Grid>
+</Window>

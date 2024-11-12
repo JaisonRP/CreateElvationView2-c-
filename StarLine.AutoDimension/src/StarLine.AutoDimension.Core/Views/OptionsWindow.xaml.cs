@@ -11,6 +11,8 @@ namespace StarLine.AutoDimension.Core.Views
         {
             InitializeComponent();
             DataContext = vm;
+
+
         }
 
         public OptionsWindowViewModel GetViewModel()

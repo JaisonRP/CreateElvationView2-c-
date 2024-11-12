@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net4.8</TargetFramework>
@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <None Remove="Services\dd.png" />
+      <None Remove="Services\Elevation.png" />
       <None Remove="Services\ElevationView.gif" />
       <None Remove="Services\logo.png" />
     </ItemGroup>
@@ -25,6 +26,7 @@
 
     <ItemGroup>
       <Resource Include="Services\dd.png" />
+      <Resource Include="Services\Elevation.png" />
       <Resource Include="Services\ElevationView.gif" />
       <Resource Include="Services\logo.png" />
     </ItemGroup>
@@ -43,5 +45,4 @@
         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
-
 </Project>

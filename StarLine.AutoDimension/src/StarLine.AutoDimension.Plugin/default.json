@@ -125,7 +125,7 @@
     "Name": "Typical Installation - Inside Corner"
   },
   "GenericTag2": {
-        "Id": 20199183,
+    "Id": 20199183,
     "Name": "profcodetag"
   },
   "GenericAnnotation": {
@@ -145,5 +145,13 @@
   "StackingDistance": 1.0,
   "DimLinesDistance": 1.0,
   "FirstDimLineHorizontal": 2.0,
-  "FirstDimLineVertical": 2.0
+  "FirstDimLineVertical": 2.0,
+  "CreateElevationViews": [
+    {
+      "ElevationOffsetFromWall": 3,
+      "ElevationViewDepth": 13,
+      "ElevationViewWidthOffset": 10,
+      "ElevationViewHeightOffset": 15
+    }
+  ]
 }

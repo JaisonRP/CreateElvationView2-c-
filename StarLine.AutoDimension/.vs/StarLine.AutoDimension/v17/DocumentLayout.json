@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2326D1E2-2328-46A4-B736-C5C8EB90D726}|src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj|c:\\users\\jaiso\\onedrive\\desktop\\stw\\revitautodimension\\starline.autodimension\\src\\starline.autodimension.core\\views\\createelevationui.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2326D1E2-2328-46A4-B736-C5C8EB90D726}|src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj|solutionrelative:src\\starline.autodimension.core\\views\\createelevationui.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2326D1E2-2328-46A4-B736-C5C8EB90D726}|src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj|c:\\users\\jaiso\\onedrive\\desktop\\stw\\revitautodimension\\starline.autodimension\\src\\starline.autodimension.core\\views\\createelevationui.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2326D1E2-2328-46A4-B736-C5C8EB90D726}|src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj|solutionrelative:src\\starline.autodimension.core\\views\\createelevationui.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{26692B61-D04B-4046-BCB3-C6FA7B197C1D}|src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj|c:\\users\\jaiso\\onedrive\\desktop\\stw\\revitautodimension\\starline.autodimension\\src\\starline.autodimension.plugin\\commands\\createelevationviewscommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{26692B61-D04B-4046-BCB3-C6FA7B197C1D}|src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj|solutionrelative:src\\starline.autodimension.plugin\\commands\\createelevationviewscommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2326D1E2-2328-46A4-B736-C5C8EB90D726}|src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj|c:\\users\\jaiso\\onedrive\\desktop\\stw\\revitautodimension\\starline.autodimension\\src\\starline.autodimension.core\\services\\window1.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2326D1E2-2328-46A4-B736-C5C8EB90D726}|src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj|solutionrelative:src\\starline.autodimension.core\\services\\window1.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2326D1E2-2328-46A4-B736-C5C8EB90D726}|src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj|c:\\users\\jaiso\\onedrive\\desktop\\stw\\revitautodimension\\starline.autodimension\\src\\starline.autodimension.core\\services\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2326D1E2-2328-46A4-B736-C5C8EB90D726}|src\\StarLine.AutoDimension.Core\\StarLine.AutoDimension.Core.csproj|solutionrelative:src\\starline.autodimension.core\\services\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{26692B61-D04B-4046-BCB3-C6FA7B197C1D}|src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj|c:\\users\\jaiso\\onedrive\\desktop\\stw\\revitautodimension\\starline.autodimension\\src\\starline.autodimension.plugin\\default.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{26692B61-D04B-4046-BCB3-C6FA7B197C1D}|src\\StarLine.AutoDimension.Plugin\\StarLine.AutoDimension.Plugin.csproj|solutionrelative:src\\starline.autodimension.plugin\\default.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,9 +25,22 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 312,
+          "DockedHeight": 142,
           "SelectedChildIndex": 19,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CreateElevationViewsCommand.cs",
+              "DocumentMoniker": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\Commands\\CreateElevationViewsCommand.cs",
+              "RelativeDocumentMoniker": "src\\StarLine.AutoDimension.Plugin\\Commands\\CreateElevationViewsCommand.cs",
+              "ToolTip": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\Commands\\CreateElevationViewsCommand.cs",
+              "RelativeToolTip": "src\\StarLine.AutoDimension.Plugin\\Commands\\CreateElevationViewsCommand.cs",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAowBMAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-12T16:31:51.206Z",
+              "IsPinned": true
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
@@ -95,38 +112,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Window1.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\Services\\Window1.xaml.cs",
-              "RelativeDocumentMoniker": "src\\StarLine.AutoDimension.Core\\Services\\Window1.xaml.cs",
-              "ToolTip": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\Services\\Window1.xaml.cs",
-              "RelativeToolTip": "src\\StarLine.AutoDimension.Core\\Services\\Window1.xaml.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAADwvzYAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-06T13:02:05.675Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Window1.xaml",
-              "DocumentMoniker": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\Services\\Window1.xaml",
-              "RelativeDocumentMoniker": "src\\StarLine.AutoDimension.Core\\Services\\Window1.xaml",
-              "ToolTip": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\Services\\Window1.xaml",
-              "RelativeToolTip": "src\\StarLine.AutoDimension.Core\\Services\\Window1.xaml",
+              "Title": "CreateElevationUI.xaml",
+              "DocumentMoniker": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\Views\\CreateElevationUI.xaml",
+              "RelativeDocumentMoniker": "src\\StarLine.AutoDimension.Core\\Views\\CreateElevationUI.xaml",
+              "ToolTip": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\Views\\CreateElevationUI.xaml",
+              "RelativeToolTip": "src\\StarLine.AutoDimension.Core\\Views\\CreateElevationUI.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-06T11:55:50.171Z"
+              "WhenOpened": "2024-11-12T19:50:26.582Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CreateElevationViewsCommand.cs",
-              "DocumentMoniker": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\Commands\\CreateElevationViewsCommand.cs",
-              "RelativeDocumentMoniker": "src\\StarLine.AutoDimension.Plugin\\Commands\\CreateElevationViewsCommand.cs",
-              "ToolTip": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\Commands\\CreateElevationViewsCommand.cs",
-              "RelativeToolTip": "src\\StarLine.AutoDimension.Plugin\\Commands\\CreateElevationViewsCommand.cs",
-              "ViewState": "AQIAAJMAAAAAAAAAAAAiwJ4AAAAAAAAA",
+              "Title": "CreateElevationUI.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\Views\\CreateElevationUI.xaml.cs",
+              "RelativeDocumentMoniker": "src\\StarLine.AutoDimension.Core\\Views\\CreateElevationUI.xaml.cs",
+              "ToolTip": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Core\\Views\\CreateElevationUI.xaml.cs",
+              "RelativeToolTip": "src\\StarLine.AutoDimension.Core\\Views\\CreateElevationUI.xaml.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAA1wC8AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T15:09:06.666Z",
+              "WhenOpened": "2024-11-12T19:48:52.816Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "default.json",
+              "DocumentMoniker": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\default.json",
+              "RelativeDocumentMoniker": "src\\StarLine.AutoDimension.Plugin\\default.json",
+              "ToolTip": "C:\\Users\\jaiso\\OneDrive\\Desktop\\STW\\revitautodimension\\StarLine.AutoDimension\\src\\StarLine.AutoDimension.Plugin\\default.json",
+              "RelativeToolTip": "src\\StarLine.AutoDimension.Plugin\\default.json",
+              "ViewState": "AQIAAJQAAAAAAAAAAAAswJ0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-11-08T13:29:41.447Z"
             }
           ]
         },
