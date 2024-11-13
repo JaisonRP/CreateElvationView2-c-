@@ -28,7 +28,8 @@ namespace StarLine.AutoDimension.Plugin.Commands
 
             //get document 
             Document doc = uidoc.Document;
-            IList<Wall> selected_curtainwalls = new List<Wall>();
+            IList<Wall> selected_curtainwalls       = new List<Wall>();
+            IList<Wall> selected_curtainwalls_valid = new List<Wall>();
 
             try
             {
@@ -40,10 +41,11 @@ namespace StarLine.AutoDimension.Plugin.Commands
                 List<string> curtain_wall_level     = new List<string>();
                 HashSet<string> Combined_name       = new HashSet<string>();
 
-                
+                //================================================================================================================================
+                //collecting and filtering all the walls based on the WindowGroupID
                 foreach (Wall wall in curtain_walls)
                 {
-                    Parameter curtainwall_windowtag = wall.LookupParameter("WindowGroupID");
+                    Parameter curtainwall_windowtag         = wall.LookupParameter("WindowGroupID");
                     string tag_name = curtainwall_windowtag != null ? curtainwall_windowtag.AsString() : "No Tag";
 
 
@@ -62,9 +64,8 @@ namespace StarLine.AutoDimension.Plugin.Commands
 
                 }
 
-
                 //================================================================================================================================
-                //collecting and loading UI
+                // UI and data collected
                 CreateElevationUI ui_window = new CreateElevationUI(commbined_names);
                 ui_window.ShowDialog();
 
@@ -73,8 +74,8 @@ namespace StarLine.AutoDimension.Plugin.Commands
                 double elevation_view_depth             = ui_window.elevation_viewdepth;
                 double elevation_width_offset           = ui_window.elevation_widthoffset;
                 double elevation_height_offset          = ui_window.elevation_heightoffset;
-
-
+                //================================================================================================================================
+                //selected walls
                 string msg3 = "";
                 //string 
                 foreach(string windows_groupid in selected_curtain_walls)
@@ -85,36 +86,50 @@ namespace StarLine.AutoDimension.Plugin.Commands
                     foreach (Wall wall in curtain_walls)
                     {
                         string wall_group_id = wall.LookupParameter("WindowGroupID").AsString();
+                        //string curtainwall_windowtag = curtainwall.LookupParameter("WindowTag").AsString();
 
-                        
                         if (wall_group_id == windowgroupid)
                         {
                             msg3 += windowgroupid + "\n";
                             selected_curtainwalls.Add(wall);
                         }
                     }
-
                 }
-                TaskDialog.Show("Create Elevation View", msg3);
 
-
-                string sel = "";
-                foreach(string item in selected_curtain_walls)
+                ICollection<Element> Elevation_views = new FilteredElementCollector(doc).OfClass(typeof(ViewSection)).WhereElementIsNotElementType().ToElements();
+                List<ViewSection> AllElevation_views = new List<ViewSection>();
+                /*
+                string msg10 = "";
+                foreach(Element elem in Elevation_views)
                 {
-                    sel += item + "\n";
+                    foreach (Wall wall in selected_curtainwalls)
+                    {
+                        if (elem is ViewSection viewsection)
+                        {
+                            AllElevation_views.Add(viewsection);
+                            string wall_windowtag = wall.LookupParameter("WindowTag").AsString();
+
+                            if (viewsection.Name != wall_windowtag)
+                            {
+                                selected_curtainwalls_valid.Add(wall);
+                                msg10 += wall.Name + "\n";
+                            }
+
+                            //msg10 += viewsection.Name + "\n" ;
+                            
+
+                        }
+                    }
                 }
 
-                TaskDialog.Show("Create Elevation View", sel);
-
+                TaskDialog.Show("Elevation View List", msg10);
+                */
                 //===================================================================================================================================================================
-                //getting elevation view familu type
+                //getting elevation view family type
 
-                IList<Element> elevation_family_types = new FilteredElementCollector(doc).OfClass(typeof(ViewFamilyType)).WhereElementIsElementType().ToElements();
-
-                Element elevation_family_type   = null;
-                string elevation_type_name      = "06 ENLARGED ELEVATION";
-
-
+                IList<Element> elevation_family_types   = new FilteredElementCollector(doc).OfClass(typeof(ViewFamilyType)).WhereElementIsElementType().ToElements();
+                Element elevation_family_type           = null;
+                string elevation_type_name              = "06 ENLARGED ELEVATION";
 
                 foreach (Element elem in elevation_family_types)
                 {
@@ -125,15 +140,11 @@ namespace StarLine.AutoDimension.Plugin.Commands
                         break;
                     }
                 }
-
-
-
                 if (elevation_family_type == null)
                 {
                     string msg = "Elevation Family Type Not Found, \nFamily Type = " + elevation_type_name;
                     TaskDialog.Show("Create Elevation View", msg);
                 }
-
 
                 //===================================================================================================================================================================
                 //collecting elevation view template
@@ -148,7 +159,6 @@ namespace StarLine.AutoDimension.Plugin.Commands
                         templates.Add(view);
                     }
                 }
-
                 View template = null;
                 string  view_template_name = "06 ENLARGED ELEVATIONS";
                 foreach (View temp in templates)
@@ -159,14 +169,23 @@ namespace StarLine.AutoDimension.Plugin.Commands
                         break;
                     }
                 }
+                if (template == null)
+                {
+                    string msg = "Elevation View Template Not Found, \nView Template = " + view_template_name;
+                    TaskDialog.Show("Create Elevation View", msg);
+                }
 
 
 
-                //TaskDialog.Show("Create Elevation View", template.Name);
 
 
+
+                //===================================================================================================================================================================
+                //creating elevation views
                 string msgs = "";
                 string msg5 = "";
+                string Elevation_viewname_exist = "";
+
                 View current_view = null;
                 string curtainwall_level_name = null;
 
@@ -217,12 +236,10 @@ namespace StarLine.AutoDimension.Plugin.Commands
                         "\n" + heightOffset.ToString() + "\n" + wall_perpendicular_angle.ToString() + "\n" + new_center_point.ToString();
 
                     //=======================================================================================================================
-                    // start transaction
                     try
                     {
                         curtainwall_level_name = curtainwall.LookupParameter("Base Constraint").AsValueString();
                         
-
                         foreach(View view in views)
                         {
                             if (view.Name.ToLower() == curtainwall_level_name.ToLower())
@@ -231,7 +248,7 @@ namespace StarLine.AutoDimension.Plugin.Commands
                             }
                         }
 
-
+                        // start transaction
                         Transaction transaction_w           = new Transaction(doc, "Create Viewsf For Windows");
                         transaction_w.Start();
                     
@@ -262,16 +279,15 @@ namespace StarLine.AutoDimension.Plugin.Commands
                         Parameter farclipoffset         = elevation_view.get_Parameter(BuiltInParameter.VIEWER_BOUND_OFFSET_FAR);
                         farclipoffset.Set(depth);
 
-
                         //set view template 
                         elevation_view.ViewTemplateId   = template.Id;
-
                         //set view name
 
+                        //setting view name
+                        string curtainwall_windowtag = curtainwall.LookupParameter("WindowTag").AsString();
                         try
                         {
-                            //setting view name
-                            string curtainwall_windowtag    = curtainwall.LookupParameter("WindowTag").AsString();
+
                             Parameter elevation_view_name   = elevation_view.LookupParameter("View Name");
                             elevation_view_name.Set(curtainwall_windowtag);
 
@@ -279,19 +295,18 @@ namespace StarLine.AutoDimension.Plugin.Commands
                             //string level_name               = curtainwall.LookupParameter("Base Constraint").AsValueString();
                             Parameter elevation_view_level  = elevation_view.LookupParameter("View Level");
                             elevation_view_level.Set(curtainwall_level_name); 
-                      
                         }
 
                         catch
                         {
-                            //
+                            Elevation_viewname_exist += curtainwall_windowtag + "\n";
                         }
 
                         transaction_w.Commit();
                     }
                     catch (Exception ex) 
                     {
-                        string msg = ex.Message;    
+                        //string msg = ex.Message;    
                     }
 
                     if (current_view == null)
@@ -303,12 +318,17 @@ namespace StarLine.AutoDimension.Plugin.Commands
                     //TaskDialog.Show("Create Elevation View", msgs);
 
                 }
+                if (Elevation_viewname_exist != "")
+                {
+                    TaskDialog.Show("Eelevation View Name Already Exist", Elevation_viewname_exist);
+                }
+
                 return Result.Succeeded;
 
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show($"{ex.Message}\r\n{ex.StackTrace}", "Error");
+                //MessageBox.Show($"{ex.Message}\r\n{ex.StackTrace}", "Error");
                 return Result.Failed;
             }
         }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StarLine.AutoDimension.Plugin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.5.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+843e73e57224eac92add3d127ebf4e35a7a222c3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca4929025974793ce5b24ae819bdb450e997b220")]
 [assembly: System.Reflection.AssemblyProductAttribute("StarLine.AutoDimension.Plugin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StarLine.AutoDimension.Plugin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.5.0.0")]
